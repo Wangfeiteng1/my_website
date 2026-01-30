@@ -1,4 +1,4 @@
-/* ================= 1. 基础重置 ================= */
+/* ================= 1. 基础变量 ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
     --primary-color: #0071e3;
@@ -18,52 +18,48 @@ body {
 
 .container { width: 90%; max-width: 720px; margin: 0 auto; }
 
-/* ================= 2. 导航栏 ================= */
+/* ================= 2. 导航与通用 ================= */
 nav { padding: 60px 0 40px; }
 .nav-flex { display: flex; justify-content: space-between; align-items: center; }
 .logo { font-weight: 700; font-size: 1.25rem; color: var(--text-main); }
 .links a {
-    text-decoration: none;
-    color: var(--text-secondary);
-    margin-left: 28px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: 0.2s;
+    text-decoration: none; color: var(--text-secondary); margin-left: 28px;
+    font-size: 0.95rem; font-weight: 500; transition: 0.2s;
 }
 .links a:hover, .links a.active { color: var(--primary-color); }
 .links a.active { font-weight: 700; }
-
-/* ================= 3. 通用控制 ================= */
 .hidden { display: none; }
 .section-title { margin-bottom: 48px; font-size: 2.2rem; font-weight: 700; }
 
-/* ================= 4. 首页 (About) ================= */
-h1 { font-size: 3.8rem; line-height: 1.05; margin-bottom: 28px; letter-spacing: -0.04em; }
+/* ================= 3. 首页与博文列表 ================= */
+h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 25px; letter-spacing: -0.03em; }
 .highlight { color: var(--primary-color); }
-.description { font-size: 1.5rem; color: #424245; }
+.description { font-size: 1.4rem; color: #424245; }
 
-/* ================= 5. 学术发表 (Publications) ================= */
-.pub-item-academic {
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border-color);
+.post-item { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+.post-item h3 { font-size: 1.6rem; cursor: pointer; transition: 0.2s; margin-bottom: 10px; }
+.post-item h3:hover { color: var(--primary-color); }
+
+/* ================= 4. 博文详情 (支持 HTML 标签) ================= */
+.back-btn {
+    background: #f5f5f7; border: none; padding: 10px 24px; border-radius: 40px;
+    cursor: pointer; color: var(--text-main); margin-bottom: 30px; font-weight: 600;
 }
+.full-content-html { margin-top: 30px; font-size: 1.1rem; }
+.full-content-html h3 { margin: 30px 0 15px; font-size: 1.5rem; }
+.full-content-html p { margin-bottom: 18px; }
+.full-content-html img { width: 100%; border-radius: 8px; margin: 20px 0; }
+
+/* ================= 5. 学术发表 ================= */
+.pub-item-academic { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
 .pub-item-academic:last-child { border: none; }
+.citation { font-size: 1rem; color: #333; }
+.citation strong { display: block; color: #000; font-size: 1.1rem; margin: 5px 0; }
 .pub-type-tag {
     font-size: 0.65rem; font-weight: 700; color: var(--primary-color);
-    text-transform: uppercase; background: #eef7ff;
-    padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 12px;
+    background: #eef7ff; padding: 2px 8px; border-radius: 4px; display: inline-block;
 }
-.citation { font-size: 1.05rem; color: #333; margin-bottom: 10px; }
-.citation strong { display: block; color: #000; font-size: 1.15rem; margin: 6px 0; }
-.citation em { color: var(--text-secondary); font-style: italic; }
-.pub-links { font-size: 0.9rem; display: flex; gap: 16px; }
-.pub-links a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
+.pub-links { margin-top: 8px; font-size: 0.9rem; display: flex; gap: 15px; }
+.pub-links a { color: var(--primary-color); text-decoration: none; }
 
-/* ================= 6. 响应式适配 ================= */
-@media (max-width: 680px) {
-    h1 { font-size: 2.6rem; }
-    .description { font-size: 1.25rem; }
-    .nav-flex { flex-direction: row; }
-    .links a { margin-left: 15px; font-size: 0.85rem; }
-}
+@media (max-width: 680px) { h1 { font-size: 2.2rem; } .nav-flex { flex-direction: column; align-items: flex-start; } .links { margin-top: 15px; } .links a { margin-left: 0; margin-right: 20px; } }

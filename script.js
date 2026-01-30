@@ -108,12 +108,15 @@ function renderPostList() {
         </div>`).join('');
 }
 
+// 在 script.js 中更新 viewPostDetail 函数
 async function viewPostDetail(index) {
     const post = posts[index];
     const detailContainer = document.getElementById('detail-content');
-    if (!detailContainer) return;
+    const tocList = document.getElementById('toc-list');
+    if (!detailContainer || !tocList) return;
 
     detailContainer.innerHTML = `<p style="color: #86868b;">正在加载内容...</p>`;
+    tocList.innerHTML = ''; // 清空旧目录
     showSection('post-detail');
 
     try {
@@ -127,13 +130,36 @@ async function viewPostDetail(index) {
             <div class="full-content-html">${htmlContent}</div>
         `;
 
-        // --- 重点：博文加载后，通知 MathJax 渲染新加入的公式 ---
+        // --- 核心：生成目录逻辑 ---
+        const headings = detailContainer.querySelectorAll('h3, h4');
+        headings.forEach((heading, i) => {
+            // 为每个标题生成一个唯一的 ID
+            const id = `heading-${i}`;
+            heading.setAttribute('id', id);
+
+            // 创建目录链接
+            const link = document.createElement('a');
+            link.href = `#${id}`;
+            link.innerText = heading.innerText;
+            // 根据标题级别增加缩进
+            if (heading.tagName === 'H4') link.style.paddingLeft = '15px';
+            
+            // 点击平滑滚动
+            link.onclick = (e) => {
+                e.preventDefault();
+                heading.scrollIntoView({ behavior: 'smooth' });
+            };
+            
+            tocList.appendChild(link);
+        });
+
+        // MathJax 渲染
         if (window.MathJax) {
             window.MathJax.typesetPromise([detailContainer]);
         }
 
     } catch (error) {
-        detailContainer.innerHTML = `<p style="color: red;">无法加载内容。</p>`;
+        detailContainer.innerHTML = `<p style="color: red;">加载失败。</p>`;
     }
 }
 
@@ -160,5 +186,6 @@ function copyBibtex(i) {
 }
 
 document.addEventListener('DOMContentLoaded', () => showSection('about'));
+
 
 

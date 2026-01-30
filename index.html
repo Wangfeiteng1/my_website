@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页 | 简约现代</title>
+    <title>王飞腾 | 个人主页</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,13 +13,7 @@
             <div class="links">
                 <a href="javascript:void(0)" onclick="showSection('about')">关于</a>
                 <a href="javascript:void(0)" onclick="showSection('blog')">博文</a>
-                <a href="javascript:void(0)" onclick="showSection('publications')">发表</a> </div>
-            <section id="publications" class="hidden">
-                <h2 class="section-title">发表作品</h2>
-                <div id="pub-list">
-                    </div>
-            </section>
-            
+                <a href="javascript:void(0)" onclick="showSection('publications')">发表</a>
             </div>
         </div>
     </nav>
@@ -32,21 +26,20 @@
 
         <section id="blog" class="hidden">
             <h2 class="section-title">最新文章</h2>
-            <div id="post-list">
-                </div>
+            <div id="post-list"></div>
+        </section>
+
+        <section id="publications" class="hidden">
+            <h2 class="section-title">发表作品</h2>
+            <div id="pub-list"></div>
         </section>
 
         <section id="post-detail" class="hidden">
             <button class="back-btn" onclick="showSection('blog')">← 返回列表</button>
-            <article id="detail-content">
-                </article>
+            <article id="detail-content"></article>
         </section>
     </main>
 
     <script src="script.js"></script>
 </body>
-
 </html>
-
-
-

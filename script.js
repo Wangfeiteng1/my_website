@@ -6,21 +6,23 @@ const posts = [
         date: "2026-01-28", 
         excerpt: "为什么郎之万动力学能够满足正则系综的基本限制？", 
         file: "posts/minimalism.html" 
+        category： “统计力学”
     },
     { 
         id: 1, 
         title: "微正则系综和正则系综之间的关联", 
         date: "2026-01-30", 
         excerpt: "为什么要选择热浴控温来开展正则系综的模拟？", 
-        file: "posts/ml-chemistry.html" 
+        file: "posts/ml-chemistry.html" ,
+        category: "统计力学"
     },
     { 
-    id: 2, 
-    title: "量子统计：线性响应理论与 Kubo 公式", 
-    date: "2026-01-30", 
-    excerpt: "从密度矩阵到涨落-耗散定理，深入探讨系统对外部扰动的微观响应逻辑...", 
-    file: "posts/fdt.html",
-    category: "统计力学"
+        id: 2, 
+        title: "量子统计：线性响应理论与 Kubo 公式", 
+        date: "2026-01-30", 
+        excerpt: "从密度矩阵到涨落-耗散定理，深入探讨系统对外部扰动的微观响应逻辑...", 
+        file: "posts/fdt.html",
+        category: "统计力学"
 }
 ];
 
@@ -194,6 +196,7 @@ function copyBibtex(i) {
 }
 
 document.addEventListener('DOMContentLoaded', () => showSection('about'));
+
 
 
 

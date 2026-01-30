@@ -13,7 +13,15 @@ const posts = [
         date: "2026-01-30", 
         excerpt: "为什么要选择热浴控温来开展正则系综的模拟？", 
         file: "posts/ml-chemistry.html" 
-    }
+    },
+    { 
+    id: 2, 
+    title: "量子统计：线性响应理论与 Kubo 公式", 
+    date: "2026-01-30", 
+    excerpt: "从密度矩阵到涨落-耗散定理，深入探讨系统对外部扰动的微观响应逻辑...", 
+    file: "posts/fdt.html",
+    category: "统计力学"
+}
 ];
 
 const publications = [
@@ -186,6 +194,7 @@ function copyBibtex(i) {
 }
 
 document.addEventListener('DOMContentLoaded', () => showSection('about'));
+
 
 
 

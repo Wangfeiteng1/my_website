@@ -45,3 +45,28 @@ $$\frac{\partial P_{eq}}{\partial t} = 0 + 0 = 0$$
 这证明了玻尔兹曼分布是郎之万动力学的平稳分布。只要系统具有遍历性（Ergodicity），郎之万动力学就会随时间演化最终收敛到正则系综。
 总结来说：
 郎之万动力学通过“摩擦”带走能量，通过“随机力”注入能量。涨落-耗散定理严格规定了这两者的比例，使得这种能量交换在统计上精确维持了温度 $T$ 下的正则分布。
+
+通过郎之万方程直接对**速度（Velocity）**进行统计分析，不仅可以推导出其分布，还能从动能的角度直接证明其符合正则系综（NVT）在温度 $T$ 下的统计性质。我们可以通过求解速度自相关函数和速度概率密度演化来论证。
+
+1. 速度分布的推导：奥恩斯坦-乌伦贝克过程
+在没有外力（$U(x) = 0$）的情况下，郎之万方程简化为速度的演化方程：
+
+$$m \frac{dv}{dt} = -\gamma v + \sqrt{2\gamma k_B T} \eta(t)$$
+这是一个典型的奥恩斯坦-乌伦贝克（Ornstein-Uhlenbeck）过程。当我们对该方程进行积分，并利用高斯白噪声的性质（均值为 0，相关函数为 $\delta$ 函数），可以证明在 $t \to \infty$ 时，速度 $v$ 的分布函数 $P(v)$ 趋向于：
+
+$$P(v) = \sqrt{\frac{m}{2\pi k_B T}} \exp\left( -\frac{mv^2}{2k_B T} \right)$$
+这正是麦克斯韦-玻尔兹曼速度分布（Maxwell-Boltzmann Distribution）。
+2. 速度平方（动能）的均分定理验证
+为了论证符合 NVT 限制，我们需要确认系统的平均动能是否满足 $\langle E_k \rangle = \frac{1}{2} k_B T$（单自由度）。
+我们可以从速度演化方程推导速度平方的均值：
+将速度方程两边乘以 $v$：$mv \frac{dv}{dt} = -\gamma v^2 + \sqrt{2\gamma k_B T} v \eta(t)$
+转化为能量演化形式：$\frac{d}{dt} (\frac{1}{2}mv^2) = -\frac{2\gamma}{m} (\frac{1}{2}mv^2) + \sqrt{2\gamma k_B T} v \eta(t)$
+取系综平均 $\langle \dots \rangle$。由于随机力与当前速度的乘积项在统计平均后会贡献一个与温度相关的项，通过积分计算可以得到：
+$$\frac{d}{dt} \langle E_k \rangle = -\frac{2\gamma}{m} \langle E_k \rangle + \frac{\gamma k_B T}{m}$$
+当系统达到平衡态（稳态），$\frac{d}{dt} \langle E_k \rangle = 0$：
+$$\frac{2\gamma}{m} \langle E_k \rangle = \frac{\gamma k_B T}{m} \implies \langle E_k \rangle = \frac{1}{2} k_B T$$
+这从能量均分定理的角度证明了郎之万动力学能够准确地将系统约束在设定的温度 $T$ 下。
+3. NVT 限制的进一步论证
+在 NVT 系综中，除了平均值，**涨落（Fluctuation）**也必须是正确的。
+速度的二阶矩（均方速率）：由上述推导可知 $\langle v^2 \rangle = \frac{k_B T}{m}$。
+高阶矩：由于郎之万方程中的随机项是高斯白噪声，其产生的速度分布也是高斯分布。正则系综下动量的分布理论上确实是高斯形式。

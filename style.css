@@ -1,20 +1,14 @@
-/* ================= 1. 基础重置与高级变量 ================= */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
-
+/* ================= 1. 基础重置 ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
     --primary-color: #0071e3;
     --text-main: #1d1d1f;
     --text-secondary: #86868b;
-    --bg-light: #f5f5f7;
-    --border-color: #d2d2d7;
+    --border-color: #f2f2f2;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
     color: var(--text-main);
     line-height: 1.5;
     background-color: #ffffff;
@@ -22,162 +16,54 @@ body {
     padding-bottom: 120px;
 }
 
-.container {
-    width: 90%;
-    max-width: 720px; /* 稍微收窄，提高阅读舒适度 */
-    margin: 0 auto;
-}
+.container { width: 90%; max-width: 720px; margin: 0 auto; }
 
-/* ================= 2. 导航栏润色 ================= */
-nav {
-    padding: 60px 0 40px;
-}
-.nav-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.logo {
-    font-weight: 700;
-    font-size: 1.25rem;
-    letter-spacing: -0.5px;
-    color: var(--text-main);
-}
+/* ================= 2. 导航栏 ================= */
+nav { padding: 60px 0 40px; }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-weight: 700; font-size: 1.25rem; color: var(--text-main); }
 .links a {
     text-decoration: none;
     color: var(--text-secondary);
     margin-left: 28px;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: 0.2s;
 }
-.links a:hover { 
-    color: var(--primary-color); 
-}
+.links a:hover, .links a.active { color: var(--primary-color); }
+.links a.active { font-weight: 700; }
 
-/* ================= 3. 通用内容控制 ================= */
+/* ================= 3. 通用控制 ================= */
 .hidden { display: none; }
-main { margin-top: 20px; }
+.section-title { margin-bottom: 48px; font-size: 2.2rem; font-weight: 700; }
 
-.section-title {
-    margin-bottom: 48px;
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-}
-
-/* ================= 4. 首页介绍 (About) ================= */
-h1 {
-    font-size: 3.8rem;
-    line-height: 1.05;
-    margin-bottom: 28px;
-    letter-spacing: -0.04em;
-    font-weight: 700;
-}
+/* ================= 4. 首页 (About) ================= */
+h1 { font-size: 3.8rem; line-height: 1.05; margin-bottom: 28px; letter-spacing: -0.04em; }
 .highlight { color: var(--primary-color); }
-.description {
-    font-size: 1.5rem;
-    color: #424245;
-    font-weight: 400;
-    max-width: 600px;
-}
+.description { font-size: 1.5rem; color: #424245; }
 
-/* ================= 5. 博文列表 (Blog) ================= */
-.post-item {
-    margin-bottom: 48px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid #f2f2f2;
-}
-.post-item:last-child { border-bottom: none; }
-
-.post-date {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-}
-.post-item h3 {
-    font-size: 1.6rem;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-.post-item h3:hover { color: var(--primary-color); }
-
-/* ================= 6. 学术发表润色 (Publications) ================= */
+/* ================= 5. 学术发表 (Publications) ================= */
 .pub-item-academic {
     margin-bottom: 32px;
     padding-bottom: 24px;
-    border-bottom: 1px solid #f2f2f2; /* 增加分割线，避免视觉散乱 */
+    border-bottom: 1px solid var(--border-color);
 }
-
 .pub-item-academic:last-child { border: none; }
-
 .pub-type-tag {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    background: #eef7ff;
-    padding: 3px 10px;
-    border-radius: 4px;
-    margin-bottom: 12px;
-    display: inline-block;
+    font-size: 0.65rem; font-weight: 700; color: var(--primary-color);
+    text-transform: uppercase; background: #eef7ff;
+    padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 12px;
 }
+.citation { font-size: 1.05rem; color: #333; margin-bottom: 10px; }
+.citation strong { display: block; color: #000; font-size: 1.15rem; margin: 6px 0; }
+.citation em { color: var(--text-secondary); font-style: italic; }
+.pub-links { font-size: 0.9rem; display: flex; gap: 16px; }
+.pub-links a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
 
-.citation {
-    font-size: 1.05rem;
-    color: #333;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-.citation .authors {
-    color: #555;
-}
-
-/* 论文标题换行显示，增加视觉重心 */
-.citation strong { 
-    display: block;
-    color: #000; 
-    font-weight: 700; 
-    margin: 6px 0;
-    font-size: 1.15rem;
-    line-height: 1.3;
-}
-
-.citation em { 
-    color: var(--text-secondary); 
-    font-style: italic; 
-}
-
-.pub-links {
-    font-size: 0.9rem;
-    display: flex;
-    gap: 16px;
-}
-
-.pub-links a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.pub-links a:hover { 
-    text-decoration: underline; 
-}
-
-/* ================= 7. 响应式适配 (Mobile) ================= */
+/* ================= 6. 响应式适配 ================= */
 @media (max-width: 680px) {
     h1 { font-size: 2.6rem; }
     .description { font-size: 1.25rem; }
-    .section-title { font-size: 1.8rem; margin-bottom: 32px; }
-    
-    .nav-flex {
-        flex-direction: row; /* 保持横向，但缩小间距 */
-    }
-    .logo { font-size: 1.1rem; }
+    .nav-flex { flex-direction: row; }
     .links a { margin-left: 15px; font-size: 0.85rem; }
-
-    .pub-item-academic { padding-left: 0; text-indent: 0; }
 }

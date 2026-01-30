@@ -7,3 +7,41 @@ $-\nabla U(x)$ 是保守力。
 $-\gamma v$ 是摩擦力（耗散项）。
 $\sqrt{2\gamma k_B T} \eta(t)$ 是随机力（涨落项），服从高斯白噪声 $\langle \eta(t)\eta(t') \rangle = \delta(t-t')$。
 这个随机力的强度系数 $\sqrt{2\gamma k_B T}$ 是由涨落-耗散定理确定的，这是确保系统演化到正则系综的关键前提。
+
+2. 转化为福克-普朗克方程
+对于上述随机微分方程，其对应的相空间概率密度分布 $P(x, v, t)$ 的演化由福克-普朗克方程（也称克莱默斯方程，Kramers Equation）描述：
+
+$$\frac{\partial P}{\partial t} = -\left[ \frac{v \partial}{\partial x} - \frac{1}{m} \frac{\partial U}{\partial x} \frac{\partial}{\partial v} \right] P + \frac{\gamma}{m} \frac{\partial}{\partial v} \left( v P + \frac{k_B T}{m} \frac{\partial P}{\partial v} \right)$$
+我们可以将方程右边分为两部分：
+刘维尔项（Liouville term）：描述哈密顿力学下的确定性运动。
+碰撞项（Collision term）：描述与热浴交换能量的涨落和耗散。
+
+3. 稳态解的验证
+当系统达到平衡态时，$\frac{\partial P}{\partial t} = 0$。我们需要验证玻尔兹曼分布 $P_{eq} \propto \exp\left( -\frac{H(x,v)}{k_B T} \right)$ 是否为该方程的解。
+哈密顿量为：$H(x, v) = \frac{1}{2}mv^2 + U(x)$。
+代入分布函数：
+
+$$P_{eq}(x, v) = C \exp \left( -\frac{mv^2/2 + U(x)}{k_B T} \right)$$
+A. 验证刘维尔项：
+由于正则分布仅依赖于能量 $H$，而根据哈密顿力学 $\frac{dH}{dt} = 0$，因此：
+
+$$\left[ \frac{v \partial}{\partial x} - \frac{1}{m} \frac{\partial U}{\partial x} \frac{\partial}{\partial v} \right] P_{eq} = 0$$
+这意味着确定性动力学部分保持了正则分布。
+B. 验证碰撞项：
+重点在于括号内的部分：
+
+$$\frac{\partial}{\partial v} \left( v P_{eq} + \frac{k_B T}{m} \frac{\partial P_{eq}}{\partial v} \right)$$
+计算偏导数 $\frac{\partial P_{eq}}{\partial v}$：
+
+$$\frac{\partial P_{eq}}{\partial v} = P_{eq} \cdot \left( -\frac{mv}{k_B T} \right)$$
+代入项中：
+
+$$v P_{eq} + \frac{k_B T}{m} \left( -\frac{mv}{k_B T} P_{eq} \right) = v P_{eq} - v P_{eq} = 0$$
+
+4. 结论
+因为刘维尔项和碰撞项在稳态下均为零，所以：
+
+$$\frac{\partial P_{eq}}{\partial t} = 0 + 0 = 0$$
+这证明了玻尔兹曼分布是郎之万动力学的平稳分布。只要系统具有遍历性（Ergodicity），郎之万动力学就会随时间演化最终收敛到正则系综。
+总结来说：
+郎之万动力学通过“摩擦”带走能量，通过“随机力”注入能量。涨落-耗散定理严格规定了这两者的比例，使得这种能量交换在统计上精确维持了温度 $T$ 下的正则分布。

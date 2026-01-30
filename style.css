@@ -133,3 +133,45 @@ h1 {
     color: #86868b;
     font-style: italic;
 }
+/* 学术列表专属样式 */
+.pub-item-academic {
+    margin-bottom: 35px;
+    padding-left: 20px;
+    border-left: 2px solid #e5e5e7; /* 左侧装饰线 */
+}
+
+.pub-type-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #0071e3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.citation {
+    font-size: 1rem;
+    color: #1d1d1f;
+    margin-bottom: 8px;
+    text-align: justify;
+}
+
+.citation strong {
+    color: #000;
+}
+
+.pub-links {
+    font-size: 0.85rem;
+}
+
+.pub-links a {
+    color: #86868b;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.pub-links a:hover {
+    text-decoration: underline;
+    color: #0071e3;
+}

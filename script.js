@@ -2,16 +2,16 @@
 const posts = [
     { 
         id: 0, 
-        title: "简约设计的力量", 
+        title: "什么是郎之万动力学", 
         date: "2026-01-28", 
-        excerpt: "为什么少即是多？探索现代网页设计的减法艺术。", 
+        excerpt: "为什么郎之万动力学能够满足正则系综的基本限制？", 
         file: "posts/minimalism.html" 
     },
     { 
         id: 1, 
-        title: "计算化学中的机器学习应用", 
+        title: "微正则系综和正则系综之间的关联", 
         date: "2026-01-30", 
-        excerpt: "探讨神经网络如何加速分子动力学模拟...", 
+        excerpt: "为什么微正则系综满足哈密顿力学的基本原理，而正则系综则不能", 
         file: "posts/ml-chemistry.html" 
     }
 ];
@@ -154,3 +154,4 @@ function copyBibtex(i) {
 }
 
 document.addEventListener('DOMContentLoaded', () => showSection('about'));
+

@@ -11,7 +11,7 @@ const posts = [
         id: 1, 
         title: "微正则系综和正则系综之间的关联", 
         date: "2026-01-30", 
-        excerpt: "为什么要选择热浴控温来开展正则系综的模拟", 
+        excerpt: "为什么要选择热浴控温来开展正则系综的模拟？", 
         file: "posts/ml-chemistry.html" 
     }
 ];
@@ -186,6 +186,7 @@ function copyBibtex(i) {
 }
 
 document.addEventListener('DOMContentLoaded', () => showSection('about'));
+
 
 
 

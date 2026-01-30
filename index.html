@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>王飞腾 | 个人主页</title>
     <link rel="stylesheet" href="style.css">
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']], // 支持 $ 行内公式
+                displayMath: [['$$', '$$'], ['\\[', '\\]']], // 支持 $$ 独行公式
+                processEscapes: true
+            },
+            options: {
+                // 因为我们是动态加载博文，所以需要告诉 MathJax 监听动态内容
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <nav>
@@ -43,4 +58,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 

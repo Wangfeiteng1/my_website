@@ -83,18 +83,136 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // 1. 新增发表文章的数据
 const publications = [
-    {
-        title: "深度解析：为什么现代网页倾向于极简主义？",
-        platform: "发表于 知乎专栏",
-        category: "设计思考",
-        link: "https://zhuanlan.zhihu.com/..." // 这里替换成你的实际链接
-    },
-    {
-        title: "2026年程序员如何通过写作提升影响力",
-        platform: "发表于 微信公众号",
-        category: "职业发展",
-        link: "#"
-    }
+   @article{RN7712,
+   author = {Wang, F. T. and Zagalskaya, A. and Ogitsu, T. and Pham, T. A. and Calegari Andrade, M. F.},
+   title = {Facet-dependent structure and dissociation of water at pristine IrO2/water interfaces},
+   journal = {J Chem Phys},
+   volume = {163},
+   number = {21},
+   ISSN = {1089-7690 (Electronic)
+0021-9606 (Linking)},
+   DOI = {10.1063/5.0299963},
+   url = {https://www.ncbi.nlm.nih.gov/pubmed/41334842},
+   year = {2025},
+   type = {Journal Article}
+}
+
+@article{RN7209,
+   author = {Wang, Fei-Teng and Cheng, Jun},
+   title = {Investigating water structure and dynamics at metal/water interfaces from classical, ab initio to machine learning molecular dynamics},
+   journal = {Current Opinion in Electrochemistry},
+   volume = {49},
+   ISSN = {24519103},
+   DOI = {10.1016/j.coelec.2024.101605},
+   year = {2025},
+   type = {Journal Article}
+}
+
+@article{RN7307,
+   author = {Wang, F. T. and Zhu, J. X. and Liu, C. and Xiong, K. and Liu, X. and Cheng, J.},
+   title = {Spatial correlation of desorption events accelerates water exchange dynamics at Pt/water interfaces},
+   journal = {Chem Sci},
+   volume = {16},
+   number = {5},
+   pages = {2325-2334},
+   ISSN = {2041-6520 (Print)
+2041-6539 (Electronic)
+2041-6520 (Linking)},
+   DOI = {10.1039/d4sc06967f},
+   url = {https://www.ncbi.nlm.nih.gov/pubmed/39776653},
+   year = {2025},
+   type = {Journal Article}
+}
+
+@article{paper2,
+author = {Wang, Fei-Teng, and Cheng, Jun},
+title = {Water structures and anisotropic dynamics at Pt(211)/water interface revealed by machine learning molecular dynamics},
+journal ={Materials Futures},
+%journal = {xxx},
+volume = {3},
+%number = {xxx},
+pages = {041001},
+year = {2024},
+doi = {10.1088/2752-5724/ad7619},
+}
+
+
+@article{doi:10.1021/acs.jpcc.2c00632,
+author = {Xie, Ke and Wang, Fei-Teng and Wei, Fenfei and Zhao, Jia and Lin, Sen},
+title = {Revealing the Origin of Nitrogen Electroreduction Activity of Molybdenum Disulfide Supported Iron Atoms},
+journal = {The Journal of Physical Chemistry C},
+volume = {126},
+number = {11},
+pages = {5180-5188},
+year = {2022},
+doi = {10.1021/acs.jpcc.2c00632},
+}
+
+@Article{C9TA06470B,
+author ="Gao, Liye and Wang, Fei-Teng and Yu, Ming-an and Wei, Fenfei and Qi, Jiamin and Lin, Sen and Xie, Daiqian",
+title  ="A novel phosphotungstic acid-supported single metal atom catalyst with high activity and selectivity for the synthesis of NH3 from electrochemical N2 reduction: a DFT prediction",
+journal  ="J. Mater. Chem. A",
+year  ="2019",
+volume  ="7",
+issue  ="34",
+pages  ="19838-19845",
+publisher  ="The Royal Society of Chemistry",
+doi  ="10.1039/C9TA06470B",
+url  ="http://dx.doi.org/10.1039/C9TA06470B",
+}
+
+@article{RN7332,
+   author = {Lin, Xin and Geng, Shize and Du, Xianglong and Wang, Feiteng and Zhang, Xu and Xiao, Fang and Xiao, Zhengyi and Wang, Yucheng and Cheng, Jun and Zheng, Zhifeng and Huang, Xiaoqing and Bu, Lingzheng},
+   title = {Efficient direct formic acid electrocatalysis enabled by rare earth-doped platinum-tellurium heterostructures},
+   journal = {Nature Communications},
+   volume = {16},
+   number = {1},
+   pages = {147},
+   ISSN = {2041-1723},
+   DOI = {10.1038/s41467-024-55612-0},
+   url = {https://doi.org/10.1038/s41467-024-55612-0},
+   year = {2025},
+   type = {Journal Article}
+}
+
+@article{WANG2021215,
+title = {Revealing the importance of kinetics in N-coordinated dual-metal sites catalyzed oxygen reduction reaction},
+journal = {Journal of Catalysis},
+volume = {396},
+pages = {215-223},
+year = {2021},
+issn = {0021-9517},
+doi = {https://doi.org/10.1016/j.jcat.2021.02.016},
+url = {https://www.sciencedirect.com/science/article/pii/S0021951721000774},
+author = {Fei-Teng Wang and Wenbo Xie and Lijun Yang and Daiqian Xie and Sen Lin},
+keywords = {Electrocatalysis, Transition-metal-nitrogen-carbon catalyst, Oxygen reduction reaction, Potential-dependent kinetics, Reaction mechanism},
+}
+
+@Article{C9TA12207A,
+author ="Zang, Jian and Wang, Fei-Teng and Cheng, Qingqing and Wang, Guoliang and Ma, Lushan and Chen, Chi and Yang, Lijun and Zou, Zhiqing and Xie, Daiqian and Yang, Hui",
+title  ="Cobalt/zinc dual-sites coordinated with nitrogen in nanofibers enabling efficient and durable oxygen reduction reaction in acidic fuel cells",
+journal  ="J. Mater. Chem. A",
+year  ="2020",
+volume  ="8",
+issue  ="7",
+pages  ="3686-3691",
+publisher  ="The Royal Society of Chemistry",
+doi  ="10.1039/C9TA12207A",
+url  ="http://dx.doi.org/10.1039/C9TA12207A",}
+
+
+@article{WANG2020105128,
+title = {Axial ligand effect on the stability of Fe–N–C electrocatalysts for acidic oxygen reduction reaction},
+journal = {Nano Energy},
+volume = {78},
+pages = {105128},
+year = {2020},
+issn = {2211-2855},
+doi = {https://doi.org/10.1016/j.nanoen.2020.105128},
+url = {https://www.sciencedirect.com/science/article/pii/S2211285520307060},
+author = {Fei-Teng Wang and Yipeng Zhou and Sen Lin and Lijun Yang and Zheng Hu and Daiqian Xie},
+keywords = {Oxygen reduction reaction, Stability, Fe–N–C electrocatalysts, First-principle modeling, Potential dependent kinetic study},
+}
 ];
 
 // 2. 更新渲染函数
@@ -181,3 +299,4 @@ function renderPublications() {
         pubList.insertAdjacentHTML('beforeend', html);
     });
 }
+

@@ -79,4 +79,54 @@ function viewPostDetail(index) {
 // 初始加载时确保显示“关于”部分
 document.addEventListener('DOMContentLoaded', () => {
     showSection('about');
+
 });
+// 1. 新增发表文章的数据
+const publications = [
+    {
+        title: "深度解析：为什么现代网页倾向于极简主义？",
+        platform: "发表于 知乎专栏",
+        category: "设计思考",
+        link: "https://zhuanlan.zhihu.com/..." // 这里替换成你的实际链接
+    },
+    {
+        title: "2026年程序员如何通过写作提升影响力",
+        platform: "发表于 微信公众号",
+        category: "职业发展",
+        link: "#"
+    }
+];
+
+// 2. 更新渲染函数
+function renderPublications() {
+    const pubList = document.getElementById('pub-list');
+    pubList.innerHTML = '';
+    
+    publications.forEach(pub => {
+        const html = `
+            <div class="pub-item">
+                <span class="pub-category">${pub.category}</span>
+                <h3><a href="${pub.link}" target="_blank">${pub.title} ↗</a></h3>
+                <p class="pub-platform">${pub.platform}</p>
+            </div>
+        `;
+        pubList.insertAdjacentHTML('beforeend', html);
+    });
+}
+
+// 3. 修改 showSection 兼容新区域
+function showSection(sectionId) {
+    // 将 'publications' 加入隐藏列表
+    const sections = ['about', 'blog', 'post-detail', 'publications'];
+    sections.forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+    });
+    
+    document.getElementById(sectionId).classList.remove('hidden');
+    
+    // 逻辑判断
+    if (sectionId === 'blog') renderPostList();
+    if (sectionId === 'publications') renderPublications(); // 新增逻辑
+    
+    window.scrollTo(0, 0);
+}

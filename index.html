@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 | 简约现代</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="container nav-flex">
+            <span class="logo" onclick="showSection('about')" style="cursor:pointer">我的主页</span>
+            <div class="links">
+                <a href="javascript:void(0)" onclick="showSection('about')">关于</a>
+                <a href="javascript:void(0)" onclick="showSection('blog')">博文</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="about">
+            <h1 class="fade-in">你好，我是 <span class="highlight">你的名字</span></h1>
+            <p class="description">一名热爱简洁设计的开发者。我喜欢编写优雅的代码，并在这里分享我的技术心得和生活感悟。</p>
+        </section>
+
+        <section id="blog" class="hidden">
+            <h2 class="section-title">最新文章</h2>
+            <div id="post-list">
+                </div>
+        </section>
+
+        <section id="post-detail" class="hidden">
+            <button class="back-btn" onclick="showSection('blog')">← 返回列表</button>
+            <article id="detail-content">
+                </article>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

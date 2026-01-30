@@ -130,3 +130,54 @@ function showSection(sectionId) {
     
     window.scrollTo(0, 0);
 }
+function copyBibtex(id) {
+    // 这里可以预设好 BibTeX 格式字符串
+    const bibtexExample = `@article{yourname2025deep,\n  title={A Deep Learning Approach...},\n  author={Your Name and Zhang, San},\n  journal={Journal of Web Engineering},\n  year={2025}\n}`;
+    
+    // 简单处理：弹窗显示，实际开发可以做成剪贴板复制
+    alert("BibTeX Reference:\n\n" + bibtexExample);
+}
+// 在 script.js 中替换或增加学术数据
+const publications = [
+    {
+        authors: "Your Name, San Zhang, and Li Si",
+        year: "2025",
+        title: "A Deep Learning Approach to Minimalist Web Design Patterns",
+        journal: "Journal of Web Engineering",
+        volume: "24(3), pp. 450-475",
+        link: "https://doi.org/10.xxxx/xxxx",
+        type: "Journal Article"
+    },
+    {
+        authors: "Your Name and Wang Wu",
+        year: "2024",
+        title: "User Experience in Single-Page Applications: A Quantitative Study",
+        journal: "International Conference on Human-Computer Interaction (HCII)",
+        volume: "Springer LNCS, vol 1234",
+        link: "#",
+        type: "Conference Paper"
+    }
+];
+
+function renderPublications() {
+    const pubList = document.getElementById('pub-list');
+    pubList.innerHTML = '';
+    
+    publications.forEach(pub => {
+        const html = `
+            <div class="pub-item-academic">
+                <span class="pub-type-tag">${pub.type}</span>
+                <p class="citation">
+                    ${pub.authors}. (${pub.year}). 
+                    <strong>"${pub.title}"</strong>. 
+                    <em>${pub.journal}</em>, ${pub.volume}.
+                </p>
+                <div class="pub-links">
+                    <a href="${pub.link}" target="_blank">DOI</a> | 
+                    <a href="javascript:void(0)" onclick="copyBibtex(${pub.id})">BibTeX</a>
+                </div>
+            </div>
+        `;
+        pubList.insertAdjacentHTML('beforeend', html);
+    });
+}

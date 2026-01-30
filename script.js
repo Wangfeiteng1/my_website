@@ -6,7 +6,7 @@ const posts = [
         date: "2026-01-28", 
         excerpt: "为什么郎之万动力学能够满足正则系综的基本限制？", 
         file: "posts/minimalism.html",
-        category： “统计力学”
+        category: "统计力学"
     },
     { 
         id: 1, 
@@ -23,7 +23,7 @@ const posts = [
         excerpt: "从密度矩阵到涨落-耗散定理，深入探讨系统对外部扰动的微观响应逻辑...", 
         file: "posts/fdt.html",
         category: "统计力学"
-}
+    }
 ];
 
 const publications = [
@@ -99,7 +99,8 @@ function showSection(sectionId) {
 
     document.querySelectorAll('.links a').forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('onclick').includes(sectionId)) link.classList.add('active');
+        const onClickAttr = link.getAttribute('onclick');
+        if (onClickAttr && onClickAttr.includes(sectionId)) link.classList.add('active');
     });
 
     if (sectionId === 'blog') renderPostList();
@@ -113,12 +114,11 @@ function renderPostList() {
     container.innerHTML = posts.map((post, i) => `
         <div class="post-item">
             <p class="post-date">${post.date}</p>
-            <h3 onclick="viewPostDetail(${i})">${post.title}</h3>
+            <h3 onclick="viewPostDetail(${i})" style="cursor:pointer;">${post.title}</h3>
             <p>${post.excerpt}</p>
         </div>`).join('');
 }
 
-// 在 script.js 中更新 viewPostDetail 函数
 async function viewPostDetail(index) {
     const post = posts[index];
     const detailContainer = document.getElementById('detail-content');
@@ -126,7 +126,7 @@ async function viewPostDetail(index) {
     if (!detailContainer || !tocList) return;
 
     detailContainer.innerHTML = `<p style="color: #86868b;">正在加载内容...</p>`;
-    tocList.innerHTML = ''; // 清空旧目录
+    tocList.innerHTML = ''; 
     showSection('post-detail');
 
     try {
@@ -140,21 +140,16 @@ async function viewPostDetail(index) {
             <div class="full-content-html">${htmlContent}</div>
         `;
 
-        // --- 核心：生成目录逻辑 ---
         const headings = detailContainer.querySelectorAll('h3, h4');
         headings.forEach((heading, i) => {
-            // 为每个标题生成一个唯一的 ID
             const id = `heading-${i}`;
             heading.setAttribute('id', id);
 
-            // 创建目录链接
             const link = document.createElement('a');
             link.href = `#${id}`;
             link.innerText = heading.innerText;
-            // 根据标题级别增加缩进
             if (heading.tagName === 'H4') link.style.paddingLeft = '15px';
             
-            // 点击平滑滚动
             link.onclick = (e) => {
                 e.preventDefault();
                 heading.scrollIntoView({ behavior: 'smooth' });
@@ -163,13 +158,12 @@ async function viewPostDetail(index) {
             tocList.appendChild(link);
         });
 
-        // MathJax 渲染
         if (window.MathJax) {
             window.MathJax.typesetPromise([detailContainer]);
         }
 
     } catch (error) {
-        detailContainer.innerHTML = `<p style="color: red;">加载失败。</p>`;
+        detailContainer.innerHTML = `<p style="color: red;">加载失败：${error.message}</p>`;
     }
 }
 
@@ -195,13 +189,7 @@ function copyBibtex(i) {
     alert("BibTeX Reference:\n\n" + (publications[i].bibtex || "BibTeX data not available."));
 }
 
-document.addEventListener('DOMContentLoaded', () => showSection('about'));
-
-
-
-
-
-
-
-
-
+document.addEventListener('DOMContentLoaded', () => {
+    // 默认展示 about 页面
+    showSection('about');
+});

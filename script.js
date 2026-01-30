@@ -1,6 +1,19 @@
-// ================= 数据部分 =================
+// ================= 数据定义 =================
 const posts = [
-    { id: 0, title: "简约设计的力量", date: "2026-01-28", excerpt: "为什么少即是多？探索现代网页设计的减法艺术。", content: "简约设计专注于核心功能，减少视觉噪音。" }
+    { 
+        id: 0, 
+        title: "简约设计的力量", 
+        date: "2026-01-28", 
+        excerpt: "为什么少即是多？探索现代网页设计的减法艺术。", 
+        file: "posts/minimalism.html" 
+    },
+    { 
+        id: 1, 
+        title: "计算化学中的机器学习应用", 
+        date: "2026-01-30", 
+        excerpt: "探讨神经网络如何加速分子动力学模拟...", 
+        file: "posts/ml-chemistry.html" 
+    }
 ];
 
 const publications = [
@@ -68,7 +81,7 @@ const publications = [
     }
 ];
 
-// ================= 逻辑部分 =================
+// ================= 核心逻辑 =================
 function showSection(sectionId) {
     const sections = ['about', 'blog', 'post-detail', 'publications'];
     sections.forEach(id => document.getElementById(id)?.classList.add('hidden'));
@@ -95,6 +108,29 @@ function renderPostList() {
         </div>`).join('');
 }
 
+async function viewPostDetail(index) {
+    const post = posts[index];
+    const detailContainer = document.getElementById('detail-content');
+    if (!detailContainer) return;
+
+    detailContainer.innerHTML = `<p style="color: #86868b;">正在加载内容...</p>`;
+    showSection('post-detail');
+
+    try {
+        const response = await fetch(post.file);
+        if (!response.ok) throw new Error("文件未找到");
+        const htmlContent = await response.text();
+
+        detailContainer.innerHTML = `
+            <p class="post-date">${post.date}</p>
+            <h1>${post.title}</h1>
+            <div class="full-content-html">${htmlContent}</div>
+        `;
+    } catch (error) {
+        detailContainer.innerHTML = `<p style="color: red;">无法加载文章内容，请检查文件路径是否正确。</p>`;
+    }
+}
+
 function renderPublications() {
     const container = document.getElementById('pub-list');
     if (!container) return;
@@ -114,7 +150,7 @@ function renderPublications() {
 }
 
 function copyBibtex(i) {
-    alert("BibTeX Reference:\n\n" + (publications[i].bibtex || "BibTeX data coming soon."));
+    alert("BibTeX Reference:\n\n" + (publications[i].bibtex || "BibTeX data not available."));
 }
 
 document.addEventListener('DOMContentLoaded', () => showSection('about'));

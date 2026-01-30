@@ -28,10 +28,9 @@ const publications = [
         year: "2025",
         volume: "163",
         number: "21",
-        doi: "10.1063/5.0299963",
         link: "https://doi.org/10.1063/5.0299963",
         type: "Journal Article",
-        bibtex: `@article{RN7712,\n  author = {Wang, F. T. and Zagalskaya, A. and Ogitsu, T. and Pham, T. A. and Calegari Andrade, M. F.},\n  title = {Facet-dependent structure and dissociation of water at pristine IrO2/water interfaces},\n  journal = {J Chem Phys},\n  year = {2025},\n  doi = {10.1063/5.0299963}\n}`
+        bibtex: "@article{RN7712,\n  author = {Wang, F. T. and Zagalskaya, A. and Ogitsu, T. and Pham, T. A. and Calegari Andrade, M. F.},\n  title = {Facet-dependent structure and dissociation of water at pristine IrO2/water interfaces},\n  journal = {J Chem Phys},\n  volume = {163},\n  number = {21},\n  year = {2025},\n  doi = {10.1063/5.0299963}\n}"
     },
     {
         id: "RN7209",
@@ -40,36 +39,100 @@ const publications = [
         journal: "Current Opinion in Electrochemistry",
         year: "2025",
         volume: "49",
-        doi: "10.1016/j.coelec.2024.101605",
         link: "https://doi.org/10.1016/j.coelec.2024.101605",
         type: "Journal Article",
-        bibtex: `@article{RN7209,\n  author = {Wang, Fei-Teng and Cheng, Jun},\n  title = {Investigating water structure and dynamics at metal/water interfaces...},\n  journal = {Current Opinion in Electrochemistry},\n  year = {2025}\n}`
+        bibtex: "@article{RN7209,\n  author = {Wang, Fei-Teng and Cheng, Jun},\n  title = {Investigating water structure and dynamics at metal/water interfaces...},\n  journal = {Current Opinion in Electrochemistry},\n  volume = {49},\n  year = {2025},\n  doi = {10.1016/j.coelec.2024.101605}\n}"
     },
     {
         id: "RN7307",
-        authors: "Wang, F. T., Zhu, J. X., Liu, C., et al.",
+        authors: "Wang, F. T., Zhu, J. X., Liu, C., Xiong, K., Liu, X., and Cheng, J.",
         title: "Spatial correlation of desorption events accelerates water exchange dynamics at Pt/water interfaces",
         journal: "Chem Sci",
         year: "2025",
         volume: "16",
         number: "5",
-        doi: "10.1039/d4sc06967f",
         link: "https://doi.org/10.1039/d4sc06967f",
         type: "Journal Article",
-        bibtex: `@article{RN7307,\n  author = {Wang, F. T. and Zhu, J. X. and Liu, C. and Xiong, K. and Liu, X. and Cheng, J.},\n  journal = {Chem Sci},\n  year = {2025}\n}`
+        bibtex: "@article{RN7307,\n  author = {Wang, F. T. and Zhu, J. X. and Liu, C. and Xiong, K. and Liu, X. and Cheng, J.},\n  title = {Spatial correlation of desorption events...},\n  journal = {Chem Sci},\n  volume = {16},\n  number = {5},\n  year = {2025},\n  doi = {10.1039/d4sc06967f}\n}"
+    },
+    {
+        id: "RN7332",
+        authors: "Lin, Xin, Geng, Shize, Du, Xianglong, Wang, Feiteng, et al.",
+        title: "Efficient direct formic acid electrocatalysis enabled by rare earth-doped platinum-tellurium heterostructures",
+        journal: "Nature Communications",
+        year: "2025",
+        volume: "16",
+        number: "1",
+        link: "https://doi.org/10.1038/s41467-024-55612-0",
+        type: "Journal Article",
+        bibtex: "@article{RN7332,\n  author = {Lin, Xin and Geng, Shize and Du, Xianglong and Wang, Feiteng and others},\n  title = {Efficient direct formic acid electrocatalysis...},\n  journal = {Nature Communications},\n  year = {2025},\n  doi = {10.1038/s41467-024-55612-0}\n}"
     },
     {
         id: "paper2",
-        authors: "Wang, Fei-Teng, and Cheng, Jun",
+        authors: "Wang, Fei-Teng and Cheng, Jun",
         title: "Water structures and anisotropic dynamics at Pt(211)/water interface revealed by machine learning molecular dynamics",
         journal: "Materials Futures",
         year: "2024",
         volume: "3",
-        pages: "041001",
-        doi: "10.1088/2752-5724/ad7619",
         link: "https://doi.org/10.1088/2752-5724/ad7619",
         type: "Journal Article",
-        bibtex: `@article{paper2,\n  author = {Wang, Fei-Teng and Cheng, Jun},\n  title = {Water structures and anisotropic dynamics...},\n  year = {2024}\n}`
+        bibtex: "@article{paper2,\n  author = {Wang, Fei-Teng and Cheng, Jun},\n  title = {Water structures and anisotropic dynamics at Pt(211)/water interface...},\n  journal = {Materials Futures},\n  year = {2024},\n  doi = {10.1088/2752-5724/ad7619}\n}"
+    },
+    {
+        id: "jpcc2022",
+        authors: "Xie, Ke, Wang, Fei-Teng, Wei, Fenfei, Zhao, Jia, and Lin, Sen",
+        title: "Revealing the Origin of Nitrogen Electroreduction Activity of Molybdenum Disulfide Supported Iron Atoms",
+        journal: "The Journal of Physical Chemistry C",
+        year: "2022",
+        volume: "126",
+        number: "11",
+        link: "https://doi.org/10.1021/acs.jpcc.2c00632",
+        type: "Journal Article",
+        bibtex: "@article{jpcc2022,\n  author = {Xie, Ke and Wang, Fei-Teng and Wei, Fenfei and Zhao, Jia and Lin, Sen},\n  title = {Revealing the Origin of Nitrogen Electroreduction Activity...},\n  journal = {The Journal of Physical Chemistry C},\n  year = {2022}\n}"
+    },
+    {
+        id: "WANG2021215",
+        authors: "Wang, Fei-Teng, Xie, Wenbo, Yang, Lijun, Xie, Daiqian, and Lin, Sen",
+        title: "Revealing the importance of kinetics in N-coordinated dual-metal sites catalyzed oxygen reduction reaction",
+        journal: "Journal of Catalysis",
+        year: "2021",
+        volume: "396",
+        link: "https://doi.org/10.1016/j.jcat.2021.02.016",
+        type: "Journal Article",
+        bibtex: "@article{WANG2021215,\n  author = {Fei-Teng Wang and Wenbo Xie and Lijun Yang and Daiqian Xie and Sen Lin},\n  title = {Revealing the importance of kinetics in N-coordinated dual-metal sites...},\n  journal = {Journal of Catalysis},\n  year = {2021}\n}"
+    },
+    {
+        id: "WANG2020105128",
+        authors: "Wang, Fei-Teng, Zhou, Yipeng, Lin, Sen, Yang, Lijun, Hu, Zheng, and Xie, Daiqian",
+        title: "Axial ligand effect on the stability of Fe–N–C electrocatalysts for acidic oxygen reduction reaction",
+        journal: "Nano Energy",
+        year: "2020",
+        volume: "78",
+        link: "https://doi.org/10.1016/j.nanoen.2020.105128",
+        type: "Journal Article",
+        bibtex: "@article{WANG2020105128,\n  author = {Fei-Teng Wang and Yipeng Zhou and Sen Lin and Lijun Yang and Zheng Hu and Daiqian Xie},\n  journal = {Nano Energy},\n  year = {2020}\n}"
+    },
+    {
+        id: "C9TA12207A",
+        authors: "Zang, Jian, Wang, Fei-Teng, et al.",
+        title: "Cobalt/zinc dual-sites coordinated with nitrogen in nanofibers enabling efficient and durable oxygen reduction reaction in acidic fuel cells",
+        journal: "J. Mater. Chem. A",
+        year: "2020",
+        volume: "8",
+        link: "http://dx.doi.org/10.1039/C9TA12207A",
+        type: "Journal Article",
+        bibtex: "@Article{C9TA12207A,\n  author ={Zang, Jian and Wang, Fei-Teng and others},\n  journal ={J. Mater. Chem. A},\n  year ={2020}\n}"
+    },
+    {
+        id: "C9TA06470B",
+        authors: "Gao, Liye, Wang, Fei-Teng, Yu, Ming-an, et al.",
+        title: "A novel phosphotungstic acid-supported single metal atom catalyst with high activity and selectivity for the synthesis of NH3 from electrochemical N2 reduction: a DFT prediction",
+        journal: "J. Mater. Chem. A",
+        year: "2019",
+        volume: "7",
+        link: "http://dx.doi.org/10.1039/C9TA06470B",
+        type: "Journal Article",
+        bibtex: "@Article{C9TA06470B,\n  author ={Gao, Liye and Wang, Fei-Teng and others},\n  journal ={J. Mater. Chem. A},\n  year ={2019}\n}"
     }
 ];
 
@@ -172,3 +235,4 @@ function copyBibtex(index) {
 document.addEventListener('DOMContentLoaded', () => {
     showSection('about');
 });
+

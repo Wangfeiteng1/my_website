@@ -199,19 +199,20 @@ function viewPostDetail(index) {
 function renderPublications() {
     const pubList = document.getElementById('pub-list');
     if (!pubList) return;
-    pubList.innerHTML = '';
+    pubList.innerHTML = ''; // 这一步很重要：清空旧内容
     
+    // 确保这里的 publications 是包含了所有 10 篇文章的那个数组
     publications.forEach((pub, index) => {
         const html = `
             <div class="pub-item-academic">
-                <span class="pub-type-tag">${pub.type || 'Article'}</span>
+                <span class="pub-type-tag">${pub.type}</span>
                 <p class="citation">
-                    ${pub.authors}. (${pub.year}). 
-                    <strong>"${pub.title}"</strong>. 
-                    <em>${pub.journal}</em>${pub.volume ? ', ' + pub.volume : ''}${pub.number ? '(' + pub.number + ')' : ''}.
+                    <span class="authors">${pub.authors}</span> (${pub.year}). 
+                    <strong>${pub.title}</strong> 
+                    <em>${pub.journal}</em>, ${pub.volume}${pub.number ? '(' + pub.number + ')' : ''}${pub.pages ? ', ' + pub.pages : ''}.
                 </p>
                 <div class="pub-links">
-                    <a href="${pub.link}" target="_blank">DOI ↗</a> | 
+                    <a href="${pub.link}" target="_blank">DOI ↗</a>
                     <a href="javascript:void(0)" onclick="copyBibtex(${index})">BibTeX</a>
                 </div>
             </div>
@@ -235,4 +236,5 @@ function copyBibtex(index) {
 document.addEventListener('DOMContentLoaded', () => {
     showSection('about');
 });
+
 

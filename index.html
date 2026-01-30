@@ -50,6 +50,19 @@
         </section>
 
         <section id="post-detail" class="hidden">
+            <div class="post-layout">
+        <aside class="toc-container">
+            <div class="toc-sticky">
+                <h4>目录</h4>
+                <nav id="toc-list"></nav>
+            </div>
+        </aside>
+
+        <div class="post-body">
+            <button class="back-btn" onclick="showSection('blog')">← 返回列表</button>
+            <article id="detail-content"></article>
+        </div>
+    </div>
             <button class="back-btn" onclick="showSection('blog')">← 返回列表</button>
             <article id="detail-content"></article>
         </section>
@@ -58,5 +71,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 

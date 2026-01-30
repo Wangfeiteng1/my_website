@@ -5,7 +5,7 @@ const posts = [
         title: "什么是郎之万动力学", 
         date: "2026-01-28", 
         excerpt: "为什么郎之万动力学能够满足正则系综的基本限制？", 
-        file: "posts/minimalism.html" ，
+        file: "posts/minimalism.html",
         category： “统计力学”
     },
     { 
@@ -13,7 +13,7 @@ const posts = [
         title: "微正则系综和正则系综之间的关联", 
         date: "2026-01-30", 
         excerpt: "为什么要选择热浴控温来开展正则系综的模拟？", 
-        file: "posts/ml-chemistry.html" ,
+        file: "posts/ml-chemistry.html",
         category: "统计力学"
     },
     { 
@@ -196,6 +196,7 @@ function copyBibtex(i) {
 }
 
 document.addEventListener('DOMContentLoaded', () => showSection('about'));
+
 
 
 

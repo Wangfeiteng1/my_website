@@ -126,8 +126,14 @@ async function viewPostDetail(index) {
             <h1>${post.title}</h1>
             <div class="full-content-html">${htmlContent}</div>
         `;
+
+        // --- 重点：博文加载后，通知 MathJax 渲染新加入的公式 ---
+        if (window.MathJax) {
+            window.MathJax.typesetPromise([detailContainer]);
+        }
+
     } catch (error) {
-        detailContainer.innerHTML = `<p style="color: red;">无法加载文章内容，请检查文件路径是否正确。</p>`;
+        detailContainer.innerHTML = `<p style="color: red;">无法加载内容。</p>`;
     }
 }
 
@@ -154,4 +160,5 @@ function copyBibtex(i) {
 }
 
 document.addEventListener('DOMContentLoaded', () => showSection('about'));
+
 

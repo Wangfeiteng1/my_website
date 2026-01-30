@@ -1,28 +1,36 @@
-/* ================= 1. 基础重置与全局变量 ================= */
+/* ================= 1. 基础重置与高级变量 ================= */
 * { 
     margin: 0; 
     padding: 0; 
     box-sizing: border-box; 
 }
 
+:root {
+    --primary-color: #0071e3;
+    --text-main: #1d1d1f;
+    --text-secondary: #86868b;
+    --bg-light: #f5f5f7;
+    --border-color: #d2d2d7;
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #1d1d1f;
-    line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    color: var(--text-main);
+    line-height: 1.5;
     background-color: #ffffff;
     -webkit-font-smoothing: antialiased;
-    padding-bottom: 100px; /* 底部留白，更有呼吸感 */
+    padding-bottom: 120px;
 }
 
 .container {
     width: 90%;
-    max-width: 750px;
+    max-width: 720px; /* 稍微收窄，提高阅读舒适度 */
     margin: 0 auto;
 }
 
-/* ================= 2. 导航栏 ================= */
+/* ================= 2. 导航栏润色 ================= */
 nav {
-    padding: 40px 0;
+    padding: 60px 0 40px;
 }
 .nav-flex {
     display: flex;
@@ -31,143 +39,145 @@ nav {
 }
 .logo {
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     letter-spacing: -0.5px;
+    color: var(--text-main);
 }
 .links a {
     text-decoration: none;
-    color: #86868b;
-    margin-left: 20px;
+    color: var(--text-secondary);
+    margin-left: 28px;
     font-size: 0.95rem;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
-.links a:hover { color: #0071e3; }
+.links a:hover { 
+    color: var(--primary-color); 
+}
 
-/* ================= 3. 内容区块通用控制 ================= */
+/* ================= 3. 通用内容控制 ================= */
 .hidden { display: none; }
-main { margin-top: 40px; }
+main { margin-top: 20px; }
+
 .section-title {
-    margin-bottom: 40px;
-    font-size: 2rem;
-    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
 }
 
 /* ================= 4. 首页介绍 (About) ================= */
 h1 {
-    font-size: 3.5rem; /* 电脑端大字体 */
-    line-height: 1.1;
-    margin-bottom: 25px;
-    letter-spacing: -0.03em;
+    font-size: 3.8rem;
+    line-height: 1.05;
+    margin-bottom: 28px;
+    letter-spacing: -0.04em;
+    font-weight: 700;
 }
-.highlight { color: #0071e3; }
+.highlight { color: var(--primary-color); }
 .description {
-    font-size: 1.4rem;
-    color: #48484a;
+    font-size: 1.5rem;
+    color: #424245;
     font-weight: 400;
+    max-width: 600px;
 }
 
-/* ================= 5. 博文列表与详情 (Blog) ================= */
+/* ================= 5. 博文列表 (Blog) ================= */
 .post-item {
-    margin-bottom: 40px;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #f2f2f2;
 }
+.post-item:last-child { border-bottom: none; }
+
 .post-date {
-    font-size: 0.85rem;
-    color: #86868b;
-    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
 }
 .post-item h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.6rem;
+    margin-bottom: 12px;
     cursor: pointer;
-    line-height: 1.3;
+    transition: color 0.2s;
 }
-.post-item h3:hover { color: #0071e3; }
+.post-item h3:hover { color: var(--primary-color); }
 
-.back-btn {
-    background: none;
-    border: 1px solid #d2d2d7;
-    padding: 8px 20px;
-    border-radius: 40px;
-    cursor: pointer;
-    color: #1d1d1f;
-    margin-bottom: 30px;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-}
-.back-btn:hover { background: #f5f5f7; }
-
-.full-content {
-    font-size: 1.1rem;
-    color: #1d1d1f;
-    margin-top: 30px;
-    white-space: pre-line;
-}
-
-/* ================= 6. 学术发表样式 (Academic) ================= */
+/* ================= 6. 学术发表润色 (Publications) ================= */
 .pub-item-academic {
-    margin-bottom: 30px;
-    padding-left: 25px;
-    text-indent: -25px; /* 悬挂缩进：学术界标准排版 */
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #f2f2f2; /* 增加分割线，避免视觉散乱 */
 }
+
+.pub-item-academic:last-child { border: none; }
 
 .pub-type-tag {
     font-size: 0.65rem;
     font-weight: 700;
-    color: #0071e3;
+    color: var(--primary-color);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    display: inline-block;
-    background: #f2f2f7;
-    padding: 2px 8px;
+    letter-spacing: 0.08em;
+    background: #eef7ff;
+    padding: 3px 10px;
     border-radius: 4px;
-    text-indent: 0; /* 标签不需要缩进 */
-    margin-right: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 12px;
+    display: inline-block;
 }
 
 .citation {
-    font-size: 1rem;
-    color: #1d1d1f;
-    margin-bottom: 6px;
-    text-align: left;
+    font-size: 1.05rem;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 10px;
 }
 
-.citation strong { color: #000; font-weight: 600; }
-.citation em { font-style: italic; color: #48484a; }
+.citation .authors {
+    color: #555;
+}
+
+/* 论文标题换行显示，增加视觉重心 */
+.citation strong { 
+    display: block;
+    color: #000; 
+    font-weight: 700; 
+    margin: 6px 0;
+    font-size: 1.15rem;
+    line-height: 1.3;
+}
+
+.citation em { 
+    color: var(--text-secondary); 
+    font-style: italic; 
+}
 
 .pub-links {
-    font-size: 0.85rem;
-    text-indent: 0; /* 链接行不需要缩进 */
-    margin-top: 5px;
-    padding-left: 25px;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 16px;
 }
-.pub-links a {
-    color: #0071e3;
-    text-decoration: none;
-    margin-right: 12px;
-}
-.pub-links a:hover { text-decoration: underline; }
 
-/* ================= 7. 响应式适配 (Mobile Optimization) ================= */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2.2rem; /* 手机端标题缩小，避免折行难看 */
-    }
-    .description {
-        font-size: 1.1rem;
-    }
-    nav {
-        padding: 20px 0;
-    }
+.pub-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.pub-links a:hover { 
+    text-decoration: underline; 
+}
+
+/* ================= 7. 响应式适配 (Mobile) ================= */
+@media (max-width: 680px) {
+    h1 { font-size: 2.6rem; }
+    .description { font-size: 1.25rem; }
+    .section-title { font-size: 1.8rem; margin-bottom: 32px; }
+    
     .nav-flex {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row; /* 保持横向，但缩小间距 */
     }
-    .links {
-        margin-top: 15px;
-    }
-    .links a {
-        margin-left: 0;
-        margin-right: 20px;
-    }
+    .logo { font-size: 1.1rem; }
+    .links a { margin-left: 15px; font-size: 0.85rem; }
+
+    .pub-item-academic { padding-left: 0; text-indent: 0; }
 }

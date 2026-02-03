@@ -4,73 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>非平衡态统计力学视角下的电化学动力学推导</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
             color: #333;
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #f4f7f9;
         }
-       .container {
+        .container {
             background-color: #fff;
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
         h1 {
             color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
             text-align: center;
+            font-size: 1.8em;
         }
         h2 {
             color: #2980b9;
-            margin-top: 30px;
-            border-left: 5px solid #3498db;
+            margin-top: 40px;
+            border-left: 6px solid #3498db;
             padding-left: 15px;
+            background: linear-gradient(to right, #eef7fe, #fff);
         }
         h3 {
             color: #16a085;
-            margin-top: 20px;
+            margin-top: 25px;
+            border-bottom: 1px dashed #16a085;
+            display: inline-block;
         }
         p {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+            text-align: justify;
         }
-       .formula-box {
-            background-color: #f1f8ff;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
+        /* 优化公式块，防止长公式溢出 */
+        .formula-box {
+            background-color: #f8faff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
             overflow-x: auto;
             border: 1px solid #d1e9ff;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 25px 0;
+            font-size: 0.95em;
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border: 1px solid #dfe6e9;
+            padding: 12px 15px;
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #f8f9fa;
+            color: #2c3e50;
         }
-       .highlight {
-            color: #e67e22;
-            font-weight: bold;
+        .highlight {
+            color: #d35400;
+            font-weight: 600;
+            background-color: #fff4e6;
+            padding: 2px 5px;
+            border-radius: 4px;
         }
         footer {
-            margin-top: 50px;
-            font-size: 0.9em;
+            margin-top: 60px;
+            font-size: 0.85em;
             text-align: center;
-            color: #7f8c8d;
+            color: #95a5a6;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        /* 列表样式优化 */
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -78,10 +111,10 @@
 
 <div class="container">
     <h1>从非平衡态统计力学到电化学动力学</h1>
-    <p style="text-align: center; font-style: italic;">——Fokker-Planck 方程、Kramers 速率理论与 Butler-Volmer 方程的详尽推导</p>
+    <p style="text-align: center; font-style: italic; color: #7f8c8d;">—— Fokker-Planck 方程、Kramers 速率理论与 Butler-Volmer 方程的详尽推导</p>
 
     <h2>1. 物理模型：势能面上的“随机漫步”</h2>
-    <p>在微观尺度上，电化学反应（如 $O + e^- \rightleftharpoons R$）不仅仅是电子的瞬时跳跃，更伴随着反应物分子结构的调整和溶剂化壳层的重组。我们将这一过程抽象为一个“准粒子”在<b>反应坐标 ($q$)</b> 上的运动。</p>
+    <p>在微观尺度上，电化学反应（如 $O + e^- \rightleftharpoons R$）不仅仅是电子的瞬时跳跃，更伴随着反应物分子结构的调整和溶剂化壳层的重组。我们将这一过程抽象为一个“准粒子”在 <b>反应坐标 ($q$)</b> 上的运动。</p>
     <p>根据非平衡态统计力学，该粒子的动力学由 <b>Langevin 方程</b> 描述：</p>
     <div class="formula-box">
         $$m\ddot{q} = -\frac{dV(q)}{dq} - \gamma m\dot{q} + \xi(t)$$
@@ -96,7 +129,7 @@
     <h2>2. 核心推导：Kramers 反应速率理论</h2>
     <p>Kramers 的伟大之处在于将“化学反应速率”转化为了“概率流跨越势垒的物理问题”。在电解液等高阻尼环境下，粒子动量的弛豫极快，我们可以忽略加速度项，得到 <b>Smoluchowski 方程</b>（位置空间的 Fokker-Planck 方程）：</p>
     <div class="formula-box">
-        $$\frac{\partial P(q, t)}{\partial t} = \frac{\partial}{\partial q} \left$$
+        $$\frac{\partial P(q, t)}{\partial t} = \frac{\partial}{\partial q} \left[ \frac{1}{\gamma m} \left( \frac{dV(q)}{dq} P(q, t) + k_B T \frac{\partial P(q, t)}{\partial q} \right) \right]$$
     </div>
 
     <h3>2.1 稳态近似与概率流积分</h3>
@@ -106,7 +139,7 @@
     </div>
     <p>为了求出 $J$，我们对上式在反应坐标上进行积分，从反应物谷底 ($q_R$) 到产物谷底 ($q_P$)：</p>
     <div class="formula-box">
-        $$J \int_{q_R}^{q_P} e^{\frac{V(q)}{k_B T}} dq = -\frac{k_B T}{\gamma m} \left_{q_R}^{q_P}$$
+        $$J \int_{q_R}^{q_P} e^{\frac{V(q)}{k_B T}} dq = -\frac{k_B T}{\gamma m} \left[ P(q) e^{\frac{V(q)}{k_B T}} \right]_{q_R}^{q_P}$$
     </div>
 
     <h3>2.2 边界条件与谐振子近似</h3>
@@ -120,21 +153,21 @@
     <div class="formula-box">
         $$k = \frac{\omega_R \omega_\ddagger}{2\pi \gamma} \exp\left( -\frac{\Delta G^\ddagger}{k_B T} \right)$$
     </div>
-    <p><span class="highlight">物理总结：</span> 反应速率不仅取决于活化能 barrier，还与介质的粘度 $\gamma$ 成反比。这意味着在极粘稠的电解质中，即使能垒很低，反应也会变慢。</p>
+    <p><span class="highlight">物理总结：</span> 反应速率不仅取决于活化能能垒，还与介质的粘度 $\gamma$ 成反比。这意味着在极粘稠的电解质中，即使能垒很低，反应也会变慢。</p>
 
     <h2>3. 电化学调制：电势如何“推”反应进行</h2>
     <p>当给电极施加电压 $E$ 时，电荷转移过程会引入电功。总势能面变为化学能与电能的叠加：</p>
     <div class="formula-box">
-        $$G_{total}(q, E) = G_{chem}(q) + ze \phi(q, E)$$
+        $$G_{\text{total}}(q, E) = G_{\text{chem}}(q) + ze \phi(q, E)$$
     </div>
     <p>施加过电位 $\eta$ 后，能垒会发生倾斜。对于还原反应，原本的活化能 $\Delta G^\ddagger_0$ 变为：</p>
     <div class="formula-box">
-        $$\Delta G^\ddagger_{cathodic} = \Delta G^\ddagger_0 + \alpha ne \eta$$
+        $$\Delta G^\ddagger_{\text{cathodic}} = \Delta G^\ddagger_0 + \alpha ne \eta$$
     </div>
     <p>这里引入了电化学中最重要的参数：<b>对称因子 $\alpha$</b>（或传递系数）。</p>
 
     <h2>4. 对称因子 $\alpha$ 的几何起源</h2>
-    <p>在 Fokker-Planck 的微观图景下，$\alpha$ 不再是一个经验常数，它描述了<b>过渡态在反应坐标上的相对位置</b>。</p>
+    <p>在 Fokker-Planck 的微观图景下，$\alpha$ 不再是一个经验常数，它描述了 <b>过渡态在反应坐标上的相对位置</b>。</p>
     
     <h3>4.1 几何解释</h3>
     <p>考虑电势在界面双电层内线性分布，$\alpha$ 的定义可以写为：</p>
@@ -142,26 +175,30 @@
         $$\alpha = \frac{q^\ddagger - q_R}{q_P - q_R}$$
     </div>
     <table>
-        <tr>
-            <th>$\alpha$ 取值</th>
-            <th>物理含义</th>
-            <th>对速率的影响</th>
-        </tr>
-        <tr>
-            <td>$\alpha = 0.5$</td>
-            <td>对称势垒。过渡态位于反应物和产物的中点。</td>
-            <td>过电位均匀地分配给正逆反应。</td>
-        </tr>
-        <tr>
-            <td>$\alpha > 0.5$</td>
-            <td>过渡态更靠近产物（“产物样”过渡态）。</td>
-            <td>电压对还原反应的加速效果更明显。</td>
-        </tr>
-        <tr>
-            <td>$\alpha < 0.5$</td>
-            <td>过渡态更靠近反应物（“反应物样”过渡态）。</td>
-            <td>系统对过电位的响应较钝。</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>$\alpha$ 取值</th>
+                <th>物理含义</th>
+                <th>对速率的影响</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$\alpha = 0.5$</td>
+                <td>对称势垒。过渡态位于反应物和产物的中点。</td>
+                <td>过电位均匀地分配给正逆反应。</td>
+            </tr>
+            <tr>
+                <td>$\alpha > 0.5$</td>
+                <td>过渡态更靠近产物（“产物样”过渡态）。</td>
+                <td>电压对还原反应的加速效果更明显。</td>
+            </tr>
+            <tr>
+                <td>$\alpha < 0.5$</td>
+                <td>过渡态更靠近反应物（“反应物样”过渡态）。</td>
+                <td>系统对过电位的响应较钝。</td>
+            </tr>
+        </tbody>
     </table>
 
     <h3>4.2 斜率解释 (Marcus 理论)</h3>
@@ -170,12 +207,12 @@
     <h2>5. 最终合成：Butler-Volmer 方程</h2>
     <p>结合上述推导，总电流密度 $i$ 是阳极电流与阴极电流之和。利用过电位 $\eta$ 对速率常数的指数调制：</p>
     <div class="formula-box">
-        $$i = i_0 \left$$
+        $$i = i_0 \left[ \exp\left( \frac{(1-\alpha)nF\eta}{RT} \right) - \exp\left( -\frac{\alpha nF\eta}{RT} \right) \right]$$
     </div>
     <p>这就是电化学动力学的核心——<b>Butler-Volmer 方程</b>。通过非平衡态统计力学的推导，我们证明了该方程不仅描述了宏观现象，更植根于反应物分子在热涨落和电场力共同驱动下的随机演化过程。</p>
 
     <footer>
-        <p>© 2026 电化学研究笔记 | 基于非平衡态统计力学框架</p>
+        <p>© 2026 电化学研究笔记 | 基于非平衡态统计力学框架 | 使用 MathJax 渲染</p>
     </footer>
 </div>
 

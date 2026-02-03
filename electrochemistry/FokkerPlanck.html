@@ -16,6 +16,7 @@
         .math-block { background-color: #f0f4f8; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 25px 0; border: 1px solid #d1d9e0; }
         .highlight { background-color: #fff3cd; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
         .derivation-step { background-color: #fdfdfe; border-left: 4px dotted #1a73e8; padding: 15px; margin: 15px 0; }
+        .analogy { background-color: #e8f0fe; border-radius: 8px; padding: 15px; margin: 10px 0; font-style: italic; }
         .footer { font-size: 0.9em; color: #666; margin-top: 60px; padding-top: 20px; border-top: 1px solid #eee; }
         ul { margin-bottom: 20px; }
         li { margin-bottom: 10px; }
@@ -72,6 +73,7 @@
             <p>根据 <span class="highlight">Pawula 定理</span>，对于受高斯白噪声驱动的系统，三阶及以上的高阶矩消失（因为 \(\langle (\Delta x)^3 \rangle\) 随时间消失的速度远快于 \(\Delta t\)）。</p>
             
             <p>保留前两项，并定义漂移系数 \(A = M^{(1)}\) 和扩散系数 \(B = \frac{1}{2}M^{(2)}\)，得到标准 FPE：</p>
+            
             <div class="math-block">
                 \[\frac{\partial P(x, t)}{\partial t} = \underbrace{-\frac{\partial}{\partial x} [A(x, t) P(x, t)]}_{\text{漂移 (Drift)}} + \underbrace{\frac{\partial^2}{\partial x^2} [B(x, t) P(x, t)]}_{\text{扩散 (Diffusion)}}\]
             </div>
@@ -81,17 +83,21 @@
             <h2>第四部分：FPE 在电化学反应中的关键应用</h2>
             
             <h3>1. 离子传输：从 FPE 到 Nernst-Planck 方程</h3>
-            <p>在电极界面，离子的宏观流向由扩散和迁移共同决定。通过 FPE 描述的概率流，可以严谨地导出 <strong>Nernst-Planck 方程</strong>：</p>
+            <p>在电极界面，离子的宏观流向由扩散和迁移共同决定。如果我们将概率密度 \(P\) 映射为宏观浓度 \(C\)，漂移速度 \(v\) 映射为电场驱动力，可严谨导出 <strong>Nernst-Planck 方程</strong>：</p>
             <div class="math-block">
-                \[J = -D \nabla C - \frac{zF}{RT} DC \nabla \phi\]
+                \[J = \underbrace{- D \nabla C}_{\text{扩散力 (自己乱跑)}} \underbrace{- \frac{zF}{RT} DC \nabla \phi}_{\text{电场力 (被拉着跑)}}\]
             </div>
+            
 
             <h3>2. 电荷转移：Kramers 速率理论</h3>
+            <div class="analogy">
+                <strong>比喻：</strong> 想象反应物是一个处在山谷的小球，必须翻过一个“能量山头”才能变成产物。给电极加电压，相当于把山头的一边削低。
+            </div>
+            <p><strong>Kramers 理论</strong>证明了反应速率不仅取决于能垒高度，还受到介质粘度（摩擦系数）的影响。这为微观理解 Butler-Volmer 方程中的传递系数 \(\alpha\) 提供了物理图景。</p>
             
-            <p>电化学反应被视为粒子在能量势垒中的跨越。<strong>Kramers 理论</strong>证明了反应速率不仅取决于能垒高度，还受到介质粘度（摩擦）的影响。这为微观理解 Butler-Volmer 方程中的传递系数 \(\alpha\) 提供了依据。</p>
 
             <h3>3. 纳米尺度涨落增强</h3>
-            <p>当电极缩小到纳米尺度，单个电荷的涨落会显著影响电势。根据 Jensen 不等式，电势的随机波动实际上加速了平均反应速率，这种现象称为<strong>涨落增强 (Fluctuation Enhancement)</strong>。</p>
+            <p>当电极缩小到纳米尺度，单个电荷的得失会导致电势剧烈波动。根据 <strong>Jensen 不等式</strong> \(\langle e^U \rangle \geq e^{\langle U \rangle}\)，电势的随机波动实际上加速了平均反应速率，这种现象称为<strong>涨落增强 (Fluctuation Enhancement)</strong>。</p>
         </section>
 
         <div class="footer">

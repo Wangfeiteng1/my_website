@@ -23,6 +23,14 @@ const posts = [
         excerpt: "从密度矩阵到涨落-耗散定理，深入探讨系统对外部扰动的微观响应逻辑...", 
         file: "posts/fdt.html",
         category: "统计力学"
+    },
+     { 
+        id: 3, 
+        title: "FPE and electrochemistry", 
+        date: "2026-01-30", 
+        excerpt: "从密度矩阵到涨落-耗散定理，深入探讨系统对外部扰动的微观响应逻辑...", 
+        file: "electrochemistry/FokkerPlanck.html",
+        category: "统计力学"
     }
 ];
 
@@ -193,5 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 默认展示 about 页面
     showSection('about');
 });
+
 
 

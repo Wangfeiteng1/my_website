@@ -31,6 +31,14 @@ const posts = [
         excerpt: "从FPE到电化学反应", 
         file: "electrochemistry/FokkerPlanck.html",
         category: "统计力学/电化学"
+    },
+       { 
+        id: 4, 
+        title: "From FPE to Kramers and Butler-Volmer", 
+        date: "2026-02-03", 
+        excerpt: "从FPE到电化学反应", 
+        file: "electrochemistry/fep_ele_kinetic.html",
+        category: "统计力学/电化学"
     }
 ];
 
@@ -201,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 默认展示 about 页面
     showSection('about');
 });
+
 
 
 

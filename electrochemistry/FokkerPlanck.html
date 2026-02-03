@@ -3,146 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>从微观随机性到宏观演化：Fokker-Planck 方程与电化学应用</title>
+    <title>Fokker-Planck 方程：从微观推导到电化学应用</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background-color: #f9f9f9;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #1a73e8;
-            border-bottom: 2px solid #1a73e8;
-            padding-bottom: 10px;
-            text-align: center;
-        }
-        h2 {
-            color: #2c3e50;
-            margin-top: 30px;
-            border-left: 5px solid #1a73e8;
-            padding-left: 15px;
-        }
-        h3 {
-            color: #d93025;
-            margin-top: 20px;
-        }
-        p {
-            margin-bottom: 15px;
-        }
-        .math-block {
-            background-color: #f0f4f8;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            margin: 20px 0;
-        }
-        ul {
-            margin-bottom: 15px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background: #eee;
-            margin: 40px 0;
-        }
-        .footer {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px dashed #ccc;
-        }
-        .reference-list {
-            list-style-type: decimal;
-        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.7; color: #333; max-width: 950px; margin: 0 auto; padding: 40px 20px; background-color: #f4f7f9; }
+        .container { background-color: #fff; padding: 50px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        h1 { color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 15px; text-align: center; font-size: 2.2em; }
+        h2 { color: #2c3e50; margin-top: 40px; border-left: 6px solid #1a73e8; padding-left: 15px; background: #f8f9fa; }
+        h3 { color: #d93025; margin-top: 25px; font-size: 1.3em; }
+        p { margin-bottom: 18px; text-align: justify; }
+        .math-block { background-color: #f0f4f8; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 25px 0; border: 1px solid #d1d9e0; }
+        .highlight { background-color: #fff3cd; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+        .derivation-step { background-color: #fdfdfe; border-left: 4px dotted #1a73e8; padding: 15px; margin: 15px 0; }
+        .footer { font-size: 0.9em; color: #666; margin-top: 60px; padding-top: 20px; border-top: 1px solid #eee; }
+        ul { margin-bottom: 20px; }
+        li { margin-bottom: 10px; }
+        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>从微观随机性到宏观演化：Fokker-Planck 方程的严谨推导与电化学应用</h1>
+        <h1>Fokker-Planck 方程的严谨推导与电化学应用</h1>
 
         <section>
-            <h2>第一部分：数学基石——从 Chapman-Kolmogorov 方程出发</h2>
-            <p>在统计力学中，我们不关心单个分子的精确轨迹，而关注系统处于某一状态 \(x\) 的<strong>概率密度</strong> \(P(x, t)\)。</p>
+            <h2>第一部分：数学基石——从 Chapman-Kolmogorov (C-K) 方程出发</h2>
+            <p>在统计力学中，我们关注的是系统处于状态 \(x\) 的<strong>概率密度</strong> \(P(x, t)\)。为了从描述全局转移的积分方程推导出描述局部演化的微分方程，我们引入了<strong>测试函数法</strong>。</p>
             
-            <h3>1. 马尔可夫性质（Markov Property）</h3>
-            <p>假设系统的“未来”仅取决于“现在”，而与“过去”无关。对于时间序列 \(t_1 < t_2 < t_3\)，其转移概率满足 <strong>Chapman-Kolmogorov (C-K) 方程</strong>：</p>
-            <div class="math-block">
-                \[P(x_3, t_3 | x_1, t_1) = \int P(x_3, t_3 | x_2, t_2) P(x_2, t_2 | x_1, t_1) dx_2\]
-            </div>
-            
-            <h3>2. 引入测试函数法（Test Function Method）</h3>
-            <p>为了将上述积分方程转化为微分方程，我们引入一个任意的光滑测试函数 \(h(x)\)。考察该函数期望值随时间的演化率：</p>
+            <h3>1. 测试函数法的本质</h3>
+            <p>我们引入一个任意的光滑测试函数 \(h(x)\)，它在无穷远处衰减为零。其物理意义在于：如果我们掌握了系统所有可能物理量（即测试函数）的期望值如何随时间变化，就能唯一确定概率分布的演化规律。</p>
             <div class="math-block">
                 \[\frac{\partial}{\partial t} \langle h(x) \rangle = \int h(x) \frac{\partial P(x, t)}{\partial t} dx\]
             </div>
+
+            <h3>2. 利用 C-K 方程转换</h3>
+            <p>根据马尔可夫性质，粒子在 \(t+\Delta t\) 时刻的期望值可写为：</p>
+            <div class="math-block">
+                \[\langle h(x) \rangle_{t+\Delta t} = \int \left[ \int h(x) P(x, t+\Delta t | x', t) dx \right] P(x', t) dx'\]
+            </div>
+            <p>括号内的项表示：已知粒子在 \(t\) 时刻位于 \(x'\)，在 \(\Delta t\) 时间后的期望值。通过考察 \(\Delta t \to 0\) 的极限，我们将积分演化转为了瞬时跳跃过程。</p>
         </section>
 
-        <hr>
+        <section>
+            <h2>第二部分：Kramers-Moyal 展开与算子转移</h2>
+            
+            <h3>1. 泰勒展开与跳跃矩</h3>
+            <p>在极短时间内，位移 \(\Delta x = x - x'\) 很小，将 \(h(x)\) 在 \(x'\) 处展开：</p>
+            <div class="math-block">
+                \[h(x) = h(x') + \frac{\partial h}{\partial x'}\Delta x + \frac{1}{2} \frac{\partial^2 h}{\partial x'^2}(\Delta x)^2 + \dots\]
+            </div>
+            <p>定义 \(n\) 阶跳跃矩 \(M^{(n)}(x', t) = \lim_{\Delta t \to 0} \frac{1}{\Delta t} \langle (\Delta x)^n \rangle\)。</p>
+
+            <h3>2. 分部积分：将导数“转嫁”给概率密度</h3>
+            <p>这是推导的核心步骤。在变化率等式中，导数算子原本作用在 \(h(x)\) 上。我们通过<strong>分部积分</strong>将其转移到 \(P(x,t)\) 上：</p>
+            <div class="derivation-step">
+                <strong>以一阶项为例：</strong>
+                \[\int P(x,t) M^{(1)} \frac{\partial h}{\partial x} dx = \underbrace{\left[ h M^{(1)} P \right]_{-\infty}^{+\infty}}_{=0} - \int h(x) \frac{\partial}{\partial x} [M^{(1)} P] dx\]
+                <strong>结论：</strong> 每转移一次导数，符号就变化一次 \((-1)^n\)。
+            </div>
+            <p>由于测试函数 \(h(x)\) 是任意的，要使等式恒成立，积分号内部的项必须为零，从而得到 <strong>Kramers-Moyal 展开</strong>：</p>
+            <div class="math-block">
+                \[\frac{\partial P(x, t)}{\partial t} = \sum_{n=1}^{\infty} \left[ -\frac{\partial}{\partial x} \right]^n \frac{M^{(n)}(x, t)}{n!} P(x, t)\]
+            </div>
+        </section>
 
         <section>
-            <h2>第二部分：Kramers-Moyal 展开与 FPE 的诞生</h2>
-            <h3>1. 泰勒展开（Taylor Expansion）</h3>
-            <p>由于在极短时间 \(\Delta t\) 内位移极小，将 \(h(x)\) 在 \(x'\) 点展开：</p>
+            <h2>第三部分：截断与标准 Fokker-Planck 方程 (FPE)</h2>
+            <p>根据 <span class="highlight">Pawula 定理</span>，对于受高斯白噪声驱动的系统，三阶及以上的高阶矩消失（因为 \(\langle (\Delta x)^3 \rangle\) 随时间消失的速度远快于 \(\Delta t\)）。</p>
+            
+            <p>保留前两项，并定义漂移系数 \(A = M^{(1)}\) 和扩散系数 \(B = \frac{1}{2}M^{(2)}\)，得到标准 FPE：</p>
             <div class="math-block">
-                \[h(x) = h(x') + \frac{\partial h}{\partial x'}(x - x') + \frac{1}{2} \frac{\partial^2 h}{\partial x'^2}(x - x')^2 + \dots\]
+                \[\frac{\partial P(x, t)}{\partial t} = \underbrace{-\frac{\partial}{\partial x} [A(x, t) P(x, t)]}_{\text{漂移 (Drift)}} + \underbrace{\frac{\partial^2}{\partial x^2} [B(x, t) P(x, t)]}_{\text{扩散 (Diffusion)}}\]
             </div>
+        </section>
 
-            <h3>2. 定义跳跃矩（Jump Moments）</h3>
+        <section>
+            <h2>第四部分：电化学应用纵览</h2>
             <ul>
-                <li><strong>\(M^{(1)}\) (漂移系数/Drift)：</strong> \(\lim_{\Delta t \to 0} \frac{\langle \Delta x \rangle}{\Delta t}\)，代表受外力作用的平均速度。</li>
-                <li><strong>\(M^{(2)}\) (扩散系数/Diffusion)：</strong> \(\lim_{\Delta t \to 0} \frac{\langle (\Delta x)^2 \rangle}{\Delta t}\)，代表由于随机碰撞导致的分布展宽。</li>
+                <li><strong>Nernst-Planck 方程：</strong> 描述离子在电场力和浓度梯度下的复合运动。</li>
+                <li><strong>Kramers 反应速率：</strong> 将电子转移视为粒子在势垒中的随机爬行，揭示了介质粘度对活化能的影响。</li>
+                <li><strong>纳米电极涨落增强：</strong> 由于电流对电压的指数依赖性，电位波动的存在（根据 Jensen 不等式）会显著提升纳米尺度的平均反应速率。</li>
             </ul>
-
-            <h3>3. 截断与标准 Fokker-Planck 方程</h3>
-            <p>根据 Pawula 定理，保留前两项即得到标准的 <strong>FPE</strong>：</p>
-            <div class="math-block">
-                \[\frac{\partial P(x, t)}{\partial t} = -\frac{\partial}{\partial x} [A(x, t)P(x, t)] + \frac{\partial^2}{\partial x^2} [B(x, t)P(x, t)]\]
-            </div>
-        </section>
-
-        <hr>
-
-        <section>
-            <h2>第三部分：FPE 在电化学反应中的关键应用</h2>
-            
-            <h3>1. 离子传输：从 FPE 到 Nernst-Planck 方程</h3>
-            <p>在电极界面，离子的宏观流向由扩散和迁移共同决定。通过 FPE 描述的概率流，可以严谨地导出 <strong>Nernst-Planck 方程</strong>：</p>
-            <div class="math-block">
-                \[J = -D \nabla C - \frac{zF}{RT} DC \nabla \phi\]
-            </div>
-
-            <h3>2. 电荷转移：Kramers 速率理论</h3>
-            
-            <p>电化学反应被视为粒子在能量势垒中的跨越。<strong>Kramers 理论</strong>证明了反应速率不仅取决于能垒高度，还受到介质粘度（摩擦）的影响。这为微观理解 Butler-Volmer 方程中的传递系数 \(\alpha\) 提供了依据。</p>
-
-            <h3>3. 纳米尺度涨落增强</h3>
-            <p>当电极缩小到纳米尺度，单个电荷的涨落会显著影响电势。根据 Jensen 不等式，电势的随机波动实际上加速了平均反应速率，这种现象称为<strong>涨落增强 (Fluctuation Enhancement)</strong>。</p>
         </section>
 
         <div class="footer">
-            <strong>参考文献：</strong>
-            <ul class="reference-list">
-                <li>Kramers–Moyal Expansion and Fokker–Planck Equation - ResearchGate (2026)</li>
-                <li>Chapter 16 - Kramers theory, ZIB.de Seminar</li>
-                <li>Reaction rate theory and Kramers theory - L01 Lecture Notes</li>
-                <li>Fluctuation enhanced electrochemical reaction rates - NIH/PMC</li>
-            </ul>
+            <strong>学术参考：</strong><br>
+            1. Kramers–Moyal Expansion - ResearchGate (2026)<br>
+            2. Reaction Rate Theory and Kramers Theory - L01 Lecture Notes<br>
+            3. Fluctuation Enhanced Electrochemical Kinetics - NIH/PMC
         </div>
     </div>
 </body>

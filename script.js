@@ -39,6 +39,14 @@ const posts = [
         excerpt: "从FPE到电化学反应", 
         file: "electrochemistry/fep_ele_kinetic.html",
         category: "统计力学/电化学"
+    },
+     { 
+        id: 5, 
+        title: "热力学定律与化学反应的判据", 
+        date: "2026-02-03", 
+        excerpt: "为什么要计算自由能", 
+        file: "posts/free_energy_entropy.html",
+        category: "统计力学"
     }
 ];
 
@@ -209,6 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 默认展示 about 页面
     showSection('about');
 });
+
 
 
 

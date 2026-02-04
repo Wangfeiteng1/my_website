@@ -47,6 +47,14 @@ const posts = [
         excerpt: "为什么要计算自由能", 
         file: "posts/free_energy_entropy.html",
         category: "统计力学"
+    },
+    { 
+        id: 6, 
+        title: "物理量的涨落与光谱", 
+        date: "2026-02-04", 
+        excerpt: "涨落视角看光谱", 
+        file: "	spectroscopy/fluctuation_spec.html",
+        category: "统计力学"
     }
 ];
 
@@ -217,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 默认展示 about 页面
     showSection('about');
 });
+
 
 
 

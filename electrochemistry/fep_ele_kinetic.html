@@ -1,220 +1,42 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>非平衡态统计力学视角下的电化学动力学推导</title>
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true
-            },
-            options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-            }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            line-height: 1.7;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f7f9;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 15px;
-            text-align: center;
-            font-size: 1.8em;
-        }
-        h2 {
-            color: #2980b9;
-            margin-top: 40px;
-            border-left: 6px solid #3498db;
-            padding-left: 15px;
-            background: linear-gradient(to right, #eef7fe, #fff);
-        }
-        h3 {
-            color: #16a085;
-            margin-top: 25px;
-            border-bottom: 1px dashed #16a085;
-            display: inline-block;
-        }
-        p {
-            margin-bottom: 18px;
-            text-align: justify;
-        }
-        /* 优化公式块，防止长公式溢出 */
-        .formula-box {
-            background-color: #f8faff;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 25px 0;
-            overflow-x: auto;
-            border: 1px solid #d1e9ff;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.95em;
-        }
-        th, td {
-            border: 1px solid #dfe6e9;
-            padding: 12px 15px;
-            text-align: left;
-        }
-        th {
-            background-color: #f8f9fa;
-            color: #2c3e50;
-        }
-        .highlight {
-            color: #d35400;
-            font-weight: 600;
-            background-color: #fff4e6;
-            padding: 2px 5px;
-            border-radius: 4px;
-        }
-        footer {
-            margin-top: 60px;
-            font-size: 0.85em;
-            text-align: center;
-            color: #95a5a6;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-        }
-        /* 列表样式优化 */
-        ul, ol {
-            margin-bottom: 20px;
-            padding-left: 25px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-    </style>
-</head>
-<body>
+<section class="post-content">
+    <p>Butler–Volmer 方程里的指数，来自电势对势垒高度的线性调制；指前因子里的摩擦，来自 Kramers 对福克–普朗克流的计算。下面按过阻尼情形把积分做出来，并写明过电位的符号。</p>
 
-<div class="container">
-    <h1>从非平衡态统计力学到电化学动力学</h1>
-    <p style="text-align: center; font-style: italic; color: #7f8c8d;">—— Fokker-Planck 方程、Kramers 速率理论与 Butler-Volmer 方程的详尽推导</p>
+    <h3>1. 反应坐标上的郎之万方程</h3>
+    <p>把电荷转移看成准粒子在反应坐标 $q$ 上的运动：</p>
+    <div class="math-block">$$m\ddot q=-\frac{dV}{dq}-\gamma m\dot q+\xi(t),\qquad\langle\xi(t)\xi(t')\rangle=2\gamma m k_B T\,\delta(t-t').$$</div>
+    <p>这里 $\gamma$ 是速度弛豫速率，噪声强度按涨落–耗散关系取。电解液里动量弛豫通常快于沿 $q$ 的扩散，可以去掉惯性，得到 Smoluchowski 方程</p>
+    <div class="math-block">$$\frac{\partial P}{\partial t}=\frac{\partial}{\partial q}\left[\frac{1}{\gamma m}\left(\frac{dV}{dq}P+k_B T\frac{\partial P}{\partial q}\right)\right].$$</div>
+    <p>方括号是概率流的相反数。扩散系数是 $D=k_B T/(\gamma m)$。</p>
 
-    <h2>1. 物理模型：势能面上的“随机漫步”</h2>
-    <p>在微观尺度上，电化学反应（如 $O + e^- \rightleftharpoons R$）不仅仅是电子的瞬时跳跃，更伴随着反应物分子结构的调整和溶剂化壳层的重组。我们将这一过程抽象为一个“准粒子”在 <b>反应坐标 ($q$)</b> 上的运动。</p>
-    <p>根据非平衡态统计力学，该粒子的动力学由 <b>Langevin 方程</b> 描述：</p>
-    <div class="formula-box">
-        $$m\ddot{q} = -\frac{dV(q)}{dq} - \gamma m\dot{q} + \xi(t)$$
-    </div>
-    <p>其中：</p>
-    <ul>
-        <li>$-\frac{dV(q)}{dq}$ 代表势能面提供的确定性回复力。</li>
-        <li>$-\gamma m\dot{q}$ 代表溶剂的粘性阻力（耗散）。</li>
-        <li>$\xi(t)$ 代表由于分子热碰撞产生的随机力（涨落）。</li>
-    </ul>
+    <h3>2. 稳态流</h3>
+    <p>准稳态下跨越势垒的流 $J$ 不随 $q$ 变化：</p>
+    <div class="math-block">$$J=-\frac{k_B T}{\gamma m}e^{-V/k_B T}\frac{d}{dq}\left(Pe^{V/k_B T}\right).$$</div>
+    <p>从反应物阱 $q_R$ 积到产物侧 $q_P$：</p>
+    <div class="math-block">$$J\int_{q_R}^{q_P}e^{V(q)/k_B T}\,dq=\frac{k_B T}{\gamma m}\left[P(q_R)e^{V(q_R)/k_B T}-P(q_P)e^{V(q_P)/k_B T}\right].$$</div>
+    <p>吸收边界取 $P(q_P)\approx 0$。反应物阱内近似局域平衡，$P(q)\approx p_R\sqrt{\kappa_R/(2\pi k_B T)}\,e^{-(V-V_R)/k_B T}$，其中 $\kappa_R=m\omega_R^2$ 是阱底曲率。于是右端正比于阱内粒子数 $n_R$。</p>
 
-    <h2>2. 核心推导：Kramers 反应速率理论</h2>
-    <p>Kramers 的伟大之处在于将“化学反应速率”转化为了“概率流跨越势垒的物理问题”。在电解液等高阻尼环境下，粒子动量的弛豫极快，我们可以忽略加速度项，得到 <b>Smoluchowski 方程</b>（位置空间的 Fokker-Planck 方程）：</p>
-    <div class="formula-box">
-        $$\frac{\partial P(q, t)}{\partial t} = \frac{\partial}{\partial q} \left[ \frac{1}{\gamma m} \left( \frac{dV(q)}{dq} P(q, t) + k_B T \frac{\partial P(q, t)}{\partial q} \right) \right]$$
-    </div>
+    <h4>2.1 势垒积分</h4>
+    <p>被积函数 $e^{V/k_B T}$ 在垒顶 $q^\ddagger$ 有尖锐极大。垒顶曲率 $\kappa_\ddagger=m\omega_\ddagger^2$，</p>
+    <div class="math-block">$$V(q)\approx V^\ddagger-\frac12\kappa_\ddagger(q-q^\ddagger)^2.$$</div>
+    <p>高斯积分给出</p>
+    <div class="math-block">$$\int e^{V/k_B T}\,dq\approx e^{V^\ddagger/k_B T}\sqrt{\frac{2\pi k_B T}{\kappa_\ddagger}}.$$</div>
+    <p>速率 $k=J/n_R$ 因此是</p>
+    <div class="math-block">$$k=\frac{\omega_R\omega_\ddagger}{2\pi\gamma}\exp\left(-\frac{\Delta V^\ddagger}{k_B T}\right).$$</div>
+    <p>这是高阻尼 Kramers 公式。$\omega_R/2\pi$ 是无摩擦过渡态理论的指前因子，多出来的 $\omega_\ddagger/\gamma$ 是摩擦把能垒顶上的来回穿过压低的因子。介质越黏，$\gamma$ 越大，速率越低。中等阻尼要改用 $\sqrt{\gamma^2/4+\omega_\ddagger^2}-\gamma/2$，不能直接套这个极限。</p>
 
-    <h3>2.1 稳态近似与概率流积分</h3>
-    <p>在稳态下，单位时间内跨越势垒的粒子数是一个定值，即概率流 $J$ 为常数：</p>
-    <div class="formula-box">
-        $$J = -\frac{k_B T}{\gamma m} e^{-\frac{V(q)}{k_B T}} \frac{d}{dq} \left( P(q) e^{\frac{V(q)}{k_B T}} \right) = \text{const}$$
-    </div>
-    <p>为了求出 $J$，我们对上式在反应坐标上进行积分，从反应物谷底 ($q_R$) 到产物谷底 ($q_P$)：</p>
-    <div class="formula-box">
-        $$J \int_{q_R}^{q_P} e^{\frac{V(q)}{k_B T}} dq = -\frac{k_B T}{\gamma m} \left[ P(q) e^{\frac{V(q)}{k_B T}} \right]_{q_R}^{q_P}$$
-    </div>
+    <h3>3. 电势怎样改势垒</h3>
+    <p>电极电位改变的是带电状态的自由能。过电位 $\eta=E-E_{\mathrm{eq}}$，并约定 $\eta<0$ 为阴极极化、有利于还原。在反应物、过渡态、产物上，电势能的分配写成</p>
+    <div class="math-block">$$\Delta G^\ddagger_c(\eta)=\Delta G^\ddagger_0+\alpha n e\eta,\qquad\Delta G^\ddagger_a(\eta)=\Delta G^\ddagger_0-(1-\alpha)ne\eta.$$</div>
+    <p>$\eta$ 为负时，阴极势垒下降，阳极势垒上升。$\alpha$ 是过渡态分享了多少电势位移，不是拟合出来再解释的参数。</p>
 
-    <h3>2.2 边界条件与谐振子近似</h3>
-    <p>我们假设：</p>
-    <ol>
-        <li>在反应物谷底，系统处于热力学平衡，$P(q_R) \approx P_0 e^{-V(q_R)/k_B T}$。</li>
-        <li>在产物端，由于反应产物被迅速移除，概率密度 $P(q_P) \approx 0$。</li>
-        <li>势垒顶部（过渡态 $q^\ddagger$）可近似为倒置的抛物线，曲率为 $\omega_\ddagger$。</li>
-    </ol>
-    <p>经过积分计算，我们得到跨越势垒的速率常数 $k$：</p>
-    <div class="formula-box">
-        $$k = \frac{\omega_R \omega_\ddagger}{2\pi \gamma} \exp\left( -\frac{\Delta G^\ddagger}{k_B T} \right)$$
-    </div>
-    <p><span class="highlight">物理总结：</span> 反应速率不仅取决于活化能能垒，还与介质的粘度 $\gamma$ 成反比。这意味着在极粘稠的电解质中，即使能垒很低，反应也会变慢。</p>
+    <h4>3.1 $\alpha$ 的两种来源</h4>
+    <p>若电势沿反应坐标线性下降，而过渡态位于 $q^\ddagger$，则</p>
+    <div class="math-block">$$\alpha=\frac{q^\ddagger-q_R}{q_P-q_R}.$$</div>
+    <p>Marcus 图像里反应物和产物是两条抛物线。交点处的斜率比给出同样的 $\alpha$，并且 $\alpha$ 会随驱动力变化：驱动力很大时过渡态更早出现，$\alpha$ 变小。Butler–Volmer 把 $\alpha$ 当成常数，只在 $\eta$ 不大时成立。</p>
 
-    <h2>3. 电化学调制：电势如何“推”反应进行</h2>
-    <p>当给电极施加电压 $E$ 时，电荷转移过程会引入电功。总势能面变为化学能与电能的叠加：</p>
-    <div class="formula-box">
-        $$G_{\text{total}}(q, E) = G_{\text{chem}}(q) + ze \phi(q, E)$$
-    </div>
-    <p>施加过电位 $\eta$ 后，能垒会发生倾斜。对于还原反应，原本的活化能 $\Delta G^\ddagger_0$ 变为：</p>
-    <div class="formula-box">
-        $$\Delta G^\ddagger_{\text{cathodic}} = \Delta G^\ddagger_0 + \alpha ne \eta$$
-    </div>
-    <p>这里引入了电化学中最重要的参数：<b>对称因子 $\alpha$</b>（或传递系数）。</p>
-
-    <h2>4. 对称因子 $\alpha$ 的几何起源</h2>
-    <p>在 Fokker-Planck 的微观图景下，$\alpha$ 不再是一个经验常数，它描述了 <b>过渡态在反应坐标上的相对位置</b>。</p>
-    
-    <h3>4.1 几何解释</h3>
-    <p>考虑电势在界面双电层内线性分布，$\alpha$ 的定义可以写为：</p>
-    <div class="formula-box">
-        $$\alpha = \frac{q^\ddagger - q_R}{q_P - q_R}$$
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>$\alpha$ 取值</th>
-                <th>物理含义</th>
-                <th>对速率的影响</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>$\alpha = 0.5$</td>
-                <td>对称势垒。过渡态位于反应物和产物的中点。</td>
-                <td>过电位均匀地分配给正逆反应。</td>
-            </tr>
-            <tr>
-                <td>$\alpha > 0.5$</td>
-                <td>过渡态更靠近产物（“产物样”过渡态）。</td>
-                <td>电压对还原反应的加速效果更明显。</td>
-            </tr>
-            <tr>
-                <td>$\alpha < 0.5$</td>
-                <td>过渡态更靠近反应物（“反应物样”过渡态）。</td>
-                <td>系统对过电位的响应较钝。</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h3>4.2 斜率解释 (Marcus 理论)</h3>
-    <p>如果用两条交错的抛物线代表反应物和产物状态，$\alpha$ 则对应于两条曲线在交点处的斜率比值。这反映了分子结构的“软硬”程度：结构越容易发生重组，其对应的势能曲线越平缓，$\alpha$ 越接近 0.5。</p>
-
-    <h2>5. 最终合成：Butler-Volmer 方程</h2>
-    <p>结合上述推导，总电流密度 $i$ 是阳极电流与阴极电流之和。利用过电位 $\eta$ 对速率常数的指数调制：</p>
-    <div class="formula-box">
-        $$i = i_0 \left[ \exp\left( \frac{(1-\alpha)nF\eta}{RT} \right) - \exp\left( -\frac{\alpha nF\eta}{RT} \right) \right]$$
-    </div>
-    <p>这就是电化学动力学的核心——<b>Butler-Volmer 方程</b>。通过非平衡态统计力学的推导，我们证明了该方程不仅描述了宏观现象，更植根于反应物分子在热涨落和电场力共同驱动下的随机演化过程。</p>
-
-    <footer>
-        <p>© 2026 电化学研究笔记 | 基于非平衡态统计力学框架 </p>
-    </footer>
-</div>
-
-</body>
-</html>
+    <h3>4. 合成 Butler–Volmer 方程</h3>
+    <p>阴极、阳极速率常数都乘上各自的玻尔兹曼因子。净电流是二者之差。平衡电位处净电流为零，由此定出交换电流 $i_0$。结果是</p>
+    <div class="math-block">$$i=i_0\left[\exp\left(\frac{(1-\alpha)nF\eta}{RT}\right)-\exp\left(-\frac{\alpha nF\eta}{RT}\right)\right].$$</div>
+    <p>第一项是阳极电流，第二项是阴极电流。$\eta<0$ 时第二项变大。$i_0$ 里仍然含有 Kramers 指前因子，所以同一张宏观 Butler–Volmer 曲线，底下可以是不同的摩擦和势垒曲率。</p>
+    <p>$|\eta|$ 很小时两指数展开，$i\approx i_0 nF\eta/RT$，这是线性响应区。$|\eta|$ 大到一个方向可忽略时，得到 Tafel 直线，斜率里出现 $\alpha$。</p>
+</section>

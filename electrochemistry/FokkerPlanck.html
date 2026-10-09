@@ -1,111 +1,37 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fokker-Planck 方程：从微观推导到电化学应用</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.7; color: #333; max-width: 950px; margin: 0 auto; padding: 40px 20px; background-color: #f4f7f9; }
-        .container { background-color: #fff; padding: 50px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        h1 { color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 15px; text-align: center; font-size: 2.2em; }
-        h2 { color: #2c3e50; margin-top: 40px; border-left: 6px solid #1a73e8; padding-left: 15px; background: #f8f9fa; }
-        h3 { color: #d93025; margin-top: 25px; font-size: 1.3em; }
-        p { margin-bottom: 18px; text-align: justify; }
-        .math-block { background-color: #f0f4f8; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 25px 0; border: 1px solid #d1d9e0; }
-        .highlight { background-color: #fff3cd; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
-        .derivation-step { background-color: #fdfdfe; border-left: 4px dotted #1a73e8; padding: 15px; margin: 15px 0; }
-        .analogy { background-color: #e8f0fe; border-radius: 8px; padding: 15px; margin: 10px 0; font-style: italic; }
-        .footer { font-size: 0.9em; color: #666; margin-top: 60px; padding-top: 20px; border-top: 1px solid #eee; }
-        ul { margin-bottom: 20px; }
-        li { margin-bottom: 10px; }
-        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Fokker-Planck 方程的严谨推导与电化学应用</h1>
+<section class="post-content">
+    <p>福克–普朗克方程是马尔可夫过程的概率密度方程。电化学反应里，它一方面给出离子通量的 Nernst–Planck 形式，另一方面在势能面上给出 Kramers 速率。这里把从 Chapman–Kolmogorov 方程到标准 FPE 的步骤写全。</p>
 
-        <section>
-            <h2>第一部分：数学基石——从 Chapman-Kolmogorov (C-K) 方程出发</h2>
-            <p>在统计力学中，我们关注的是系统处于状态 \(x\) 的<strong>概率密度</strong> \(P(x, t)\)。为了从描述全局转移的积分方程推导出描述局部演化的微分方程，我们引入了<strong>测试函数法</strong>。</p>
-            
-            <h3>1. 测试函数法的本质</h3>
-            <p>我们引入一个任意的光滑测试函数 \(h(x)\)，它在无穷远处衰减为零。其物理意义在于：如果我们掌握了系统所有可能物理量（即测试函数）的期望值如何随时间变化，就能唯一确定概率分布的演化规律。</p>
-            <div class="math-block">
-                \[\frac{\partial}{\partial t} \langle h(x) \rangle = \int h(x) \frac{\partial P(x, t)}{\partial t} dx\]
-            </div>
+    <h3>1. 从转移概率到期望的变化</h3>
+    <p>设状态变量为 $x$，概率密度为 $P(x,t)$。马尔可夫过程由转移密度 $P(x,t+\Delta t\mid x',t)$ 完全决定，Chapman–Kolmogorov 方程是</p>
+    <div class="math-block">$$P(x,t+\Delta t)=\int P(x,t+\Delta t\mid x',t)\,P(x',t)\,dx'.$$</div>
+    <p>直接对它做 $\Delta t\to 0$ 不方便，因为转移密度在 $\Delta t=0$ 变成 $\delta(x-x')$。改看任意光滑、边界上衰减的测试函数 $h(x)$ 的期望：</p>
+    <div class="math-block">$$\langle h\rangle_{t+\Delta t}-\langle h\rangle_t=\int P(x',t)\left[\int h(x)P(x,t+\Delta t\mid x',t)\,dx-h(x')\right]dx'.$$</div>
+    <p>若所有这种期望的变化率已知，$P$ 的演化也就唯一确定。</p>
 
-            <h3>2. 利用 C-K 方程转换</h3>
-            <p>根据马尔可夫性质，粒子在 \(t+\Delta t\) 时刻的期望值可写为：</p>
-            <div class="math-block">
-                \[\langle h(x) \rangle_{t+\Delta t} = \int \left[ \int h(x) P(x, t+\Delta t | x', t) dx \right] P(x', t) dx'\]
-            </div>
-            <p>括号内的项表示：已知粒子在 \(t\) 时刻位于 \(x'\)，在 \(\Delta t\) 时间后的期望值。通过考察 \(\Delta t \to 0\) 的极限，我们将积分演化转为了瞬时跳跃过程。</p>
-        </section>
+    <h3>2. Kramers–Moyal 展开</h3>
+    <p>短时间里跳跃 $\Delta x=x-x'$ 很小。把 $h(x)$ 在 $x'$ 展开：</p>
+    <div class="math-block">$$h(x)=h(x')+\partial_{x'}h\,\Delta x+\frac12\partial_{x'}^2 h\,(\Delta x)^2+\cdots.$$</div>
+    <p>定义跳跃矩</p>
+    <div class="math-block">$$M^{(n)}(x',t)=\lim_{\Delta t\to 0}\frac{1}{\Delta t}\langle(\Delta x)^n\rangle_{x'}.$$</div>
+    <p>除以 $\Delta t$ 并取极限，</p>
+    <div class="math-block">$$\frac{d}{dt}\langle h\rangle=\int P(x,t)\sum_{n\ge 1}\frac{M^{(n)}(x,t)}{n!}\partial_x^n h\,dx.$$</div>
+    <p>导数现在作用在 $h$ 上。做 $n$ 次分部积分，边界项为零，导数转到 $P$ 上，每转一次出一个负号。$h$ 任意，所以</p>
+    <div class="math-block">$$\frac{\partial P}{\partial t}=\sum_{n=1}^{\infty}\left(-\frac{\partial}{\partial x}\right)^n\left[\frac{M^{(n)}}{n!}P\right].$$</div>
+    <p>这是 Kramers–Moyal 展开。它还不是 FPE，因为右边有无穷项。</p>
 
-        <section>
-            <h2>第二部分：Kramers-Moyal 展开与算子转移</h2>
-            
-            <h3>1. 泰勒展开与跳跃矩</h3>
-            <p>在极短时间内，位移 \(\Delta x = x - x'\) 很小，将 \(h(x)\) 在 \(x'\) 处展开：</p>
-            <div class="math-block">
-                \[h(x) = h(x') + \frac{\partial h}{\partial x'}\Delta x + \frac{1}{2} \frac{\partial^2 h}{\partial x'^2}(\Delta x)^2 + \dots\]
-            </div>
-            <p>定义 \(n\) 阶跳跃矩 \(M^{(n)}(x', t) = \lim_{\Delta t \to 0} \frac{1}{\Delta t} \langle (\Delta x)^n \rangle\)。</p>
+    <h3>3. 截断成 Fokker–Planck 方程</h3>
+    <p>高斯白噪声驱动的朗之万方程里，$(\Delta x)^3$ 及更高阶矩比 $\Delta t$ 更快地趋于零。Pawula 定理说：若某个偶数阶矩严格为零，则要么只剩漂移，要么三阶及以上全部为零。保留前两项，记漂移 $A=M^{(1)}$、扩散 $B=M^{(2)}/2$，</p>
+    <div class="math-block">$$\frac{\partial P}{\partial t}=-\frac{\partial}{\partial x}[A(x,t)P]+\frac{\partial^2}{\partial x^2}[B(x,t)P].$$</div>
+    <p>第一项是概率流的对流，第二项是扩散。对应的概率流是</p>
+    <div class="math-block">$$J=AP-\partial_x(BP).$$</div>
+    <p>稳态要么 $J=0$，要么 $J$ 为常数。电化学反应速率用的是后者。</p>
 
-            <h3>2. 分部积分：将导数“转嫁”给概率密度</h3>
-            <p>这是推导的核心步骤。在变化率等式中，导数算子原本作用在 \(h(x)\) 上。我们通过<strong>分部积分</strong>将其转移到 \(P(x,t)\) 上：</p>
-            <div class="derivation-step">
-                <strong>以一阶项为例：</strong>
-                \[\int P(x,t) M^{(1)} \frac{\partial h}{\partial x} dx = \underbrace{\left[ h M^{(1)} P \right]_{-\infty}^{+\infty}}_{=0} - \int h(x) \frac{\partial}{\partial x} [M^{(1)} P] dx\]
-                <strong>结论：</strong> 每转移一次导数，符号就变化一次 \((-1)^n\)。
-            </div>
-            <p>由于测试函数 \(h(x)\) 是任意的，要使等式恒成立，积分号内部的项必须为零，从而得到 <strong>Kramers-Moyal 展开</strong>：</p>
-            <div class="math-block">
-                \[\frac{\partial P(x, t)}{\partial t} = \sum_{n=1}^{\infty} \left[ -\frac{\partial}{\partial x} \right]^n \frac{M^{(n)}(x, t)}{n!} P(x, t)\]
-            </div>
-        </section>
+    <h3>4. 从 FPE 到 Nernst–Planck</h3>
+    <p>稀溶液里把 $P$ 换成浓度 $c$，位置空间过阻尼漂移是迁移率乘力。力为 $-k_B T\nabla\ln c$ 加上电场 $-ze\nabla\phi$ 时，</p>
+    <div class="math-block">$$\mathbf J=-D\nabla c-\frac{zeD}{k_B T}c\nabla\phi.$$</div>
+    <p>这里用了爱因斯坦关系 $D=\mu k_B T$。写成摩尔单位就是常见的 Nernst–Planck 方程。扩散项来自 $B$，迁移项来自 $A$。界面双电层里 $\phi$ 变化很快，这项不能拿体相电场代替。</p>
 
-        <section>
-            <h2>第三部分：截断与标准 Fokker-Planck 方程 (FPE)</h2>
-            <p>根据 <span class="highlight">Pawula 定理</span>，对于受高斯白噪声驱动的系统，三阶及以上的高阶矩消失（因为 \(\langle (\Delta x)^3 \rangle\) 随时间消失的速度远快于 \(\Delta t\)）。</p>
-            
-            <p>保留前两项，并定义漂移系数 \(A = M^{(1)}\) 和扩散系数 \(B = \frac{1}{2}M^{(2)}\)，得到标准 FPE：</p>
-            
-            <div class="math-block">
-                \[\frac{\partial P(x, t)}{\partial t} = \underbrace{-\frac{\partial}{\partial x} [A(x, t) P(x, t)]}_{\text{漂移 (Drift)}} + \underbrace{\frac{\partial^2}{\partial x^2} [B(x, t) P(x, t)]}_{\text{扩散 (Diffusion)}}\]
-            </div>
-        </section>
-
-        <section>
-            <h2>第四部分：FPE 在电化学反应中的关键应用</h2>
-            
-            <h3>1. 离子传输：从 FPE 到 Nernst-Planck 方程</h3>
-            <p>在电极界面，离子的宏观流向由扩散和迁移共同决定。如果我们将概率密度 \(P\) 映射为宏观浓度 \(C\)，漂移速度 \(v\) 映射为电场驱动力，可严谨导出 <strong>Nernst-Planck 方程</strong>：</p>
-            <div class="math-block">
-                \[J = \underbrace{- D \nabla C}_{\text{扩散力 (自己乱跑)}} \underbrace{- \frac{zF}{RT} DC \nabla \phi}_{\text{电场力 (被拉着跑)}}\]
-            </div>
-            
-
-            <h3>2. 电荷转移：Kramers 速率理论</h3>
-            <div class="analogy">
-                <strong>比喻：</strong> 想象反应物是一个处在山谷的小球，必须翻过一个“能量山头”才能变成产物。给电极加电压，相当于把山头的一边削低。
-            </div>
-            <p><strong>Kramers 理论</strong>证明了反应速率不仅取决于能垒高度，还受到介质粘度（摩擦系数）的影响。这为微观理解 Butler-Volmer 方程中的传递系数 \(\alpha\) 提供了物理图景。</p>
-            
-
-            <h3>3. 纳米尺度涨落增强</h3>
-            <p>当电极缩小到纳米尺度，单个电荷的得失会导致电势剧烈波动。根据 <strong>Jensen 不等式</strong> \(\langle e^U \rangle \geq e^{\langle U \rangle}\)，电势的随机波动实际上加速了平均反应速率，这种现象称为<strong>涨落增强 (Fluctuation Enhancement)</strong>。</p>
-        </section>
-
-        <div class="footer">
-            <strong>学术参考：</strong><br>
-            1. Kramers–Moyal Expansion - ResearchGate (2026)<br>
-            2. Reaction Rate Theory and Kramers Theory - L01 Lecture Notes<br>
-            3. Fluctuation Enhanced Electrochemical Kinetics - NIH/PMC
-        </div>
-    </div>
-</body>
-</html>
+    <h3>5. 势垒跨越和纳米电极涨落</h3>
+    <p>若 $x$ 是反应坐标，$A$ 和 $B$ 由势能和摩擦决定，稳态非零流 $J$ 就是反应速率。高阻尼下它给出 Kramers 公式，下一步笔记专门算这个积分。</p>
+    <p>电极小到纳米尺度时，单电子转移会让局部电势涨落。速率含 $e^{-\alpha e\eta/k_B T}$，对涨落电势做平均后，Jensen 不等式给出 $\langle e^{U}\rangle\ge e^{\langle U\rangle}$。平均速率因此不低于用平均电势算出来的速率。这是涨落增强，不是新的反应通道；它只说明非线性指数不能和平均交换顺序。</p>
+</section>

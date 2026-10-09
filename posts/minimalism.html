@@ -1,63 +1,54 @@
 <section class="post-content">
-    <h3>1. 郎之万方程的建立</h3>
-    <p>郎之万方程描述了一个受力平衡系统：</p>
-    
-    <div class="math-block">
-        $$m \dot{v} = -\nabla U(x) - \gamma v + \sqrt{2\gamma k_B T} \eta(t)$$
-    </div>
+    <p>郎之万动力学是在牛顿方程上加上耗散和涨落，使孤立的微正则轨迹变成与热浴接触的正则系综。下面从运动方程写到福克–普朗克方程，再验证玻尔兹曼分布确是其平稳解，并给出动能弛豫到均分定理的计算。</p>
 
-    <p>其中：</p>
+    <h3>1. 郎之万方程</h3>
+    <p>一维布朗粒子的欠阻尼郎之万方程是</p>
+    <div class="math-block">$$m\dot v=-\frac{\partial U}{\partial x}-\gamma v+\sqrt{2\gamma k_B T}\,\eta(t),$$</div>
+    <p>其中 $v=\dot x$。三项的来源不同：</p>
     <ul>
-        <li>$-\nabla U(x)$ 是保守力。</li>
-        <li>$-\gamma v$ 是摩擦力（耗散项）。</li>
-        <li>$\sqrt{2\gamma k_B T} \eta(t)$ 是随机力（涨落项），服从高斯白噪声 $\langle \eta(t)\eta(t') \rangle = \delta(t-t')$。</li>
+        <li>$-\partial U/\partial x$ 是势能给出的保守力，单独存在时能量守恒。</li>
+        <li>$-\gamma v$ 是线性摩擦。这里 $\gamma$ 的量纲是质量/时间，弛豫时间是 $m/\gamma$。</li>
+        <li>$\sqrt{2\gamma k_B T}\,\eta(t)$ 是热浴撞击。约定 $\eta(t)$ 是单位强度高斯白噪声，$\langle\eta(t)\rangle=0$，$\langle\eta(t)\eta(t')\rangle=\delta(t-t')$。系数不是自由参数，而由下面的涨落–耗散关系固定。</li>
     </ul>
-    <p>这个随机力的强度系数 $\sqrt{2\gamma k_B T}$ 是由<strong>涨落-耗散定理</strong>确定的，这是确保系统演化到正则系综的关键前提。</p>
+    <p>为什么噪声强度必须是 $\sqrt{2\gamma k_B T}$？若只有摩擦、没有噪声，动能会被单调抽走，温度降到零。若噪声过强，温度会升高。平衡要求两者相消，这就是第 5 节动能方程的稳态条件。</p>
 
-    <h3>2. 转化为福克-普朗克方程</h3>
-    <p>对于上述随机微分方程，其对应的相空间概率密度分布 $P(x, v, t)$ 的演化由福克-普朗克方程（也称克莱默斯方程，Kramers Equation）描述：</p>
+    <h3>2. 对应的福克–普朗克方程</h3>
+    <p>白噪声郎之万方程等价于相空间概率密度 $P(x,v,t)$ 的 Kramers 方程。把它写成刘维尔流加碰撞算符：</p>
+    <div class="math-block">$$\frac{\partial P}{\partial t}=-\underbrace{\left(v\frac{\partial}{\partial x}-\frac{1}{m}\frac{\partial U}{\partial x}\frac{\partial}{\partial v}\right)P}_{\text{刘维尔项}}+\underbrace{\frac{\gamma}{m}\frac{\partial}{\partial v}\left(vP+\frac{k_B T}{m}\frac{\partial P}{\partial v}\right)}_{\text{碰撞项}}.$$</div>
+    <p>刘维尔项来自保守力下的特征线 $dx/dt=v$、$dv/dt=-(1/m)\partial U/\partial x$。碰撞项来自 Ornstein–Uhlenbeck 噪声：漂移 $-\,(\gamma/m)v$，速度扩散系数 $(\gamma k_B T)/m^2$。写成通量散度后，就是上面括号里的形式。噪声强度一旦偏离 $\sqrt{2\gamma k_B T}$，括号中 $k_B T$ 会换成别的温度，平稳解就不再是目标温度下的正则分布。</p>
 
-    <div class="math-block">
-        $$\frac{\partial P}{\partial t} = -\left[ \frac{v \partial}{\partial x} - \frac{1}{m} \frac{\partial U}{\partial x} \frac{\partial}{\partial v} \right] P + \frac{\gamma}{m} \frac{\partial}{\partial v} \left( v P + \frac{k_B T}{m} \frac{\partial P}{\partial v} \right)$$
-    </div>
+    <h3>3. 玻尔兹曼分布是平稳解</h3>
+    <p>哈密顿量 $H=\frac12 mv^2+U(x)$。待验证的正则分布是</p>
+    <div class="math-block">$$P_{\mathrm{eq}}(x,v)=\frac{1}{Z}\exp\left(-\frac{H}{k_B T}\right),\qquad Z=\int\frac{dx\,dv}{h}\exp\left(-\frac{H}{k_B T}\right).$$</div>
+    <p>平衡时 $\partial P/\partial t=0$。只需证明刘维尔项和碰撞项分别作用在 $P_{\mathrm{eq}}$ 上为零。</p>
 
-    <p>我们可以将方程右边分为两部分：</p>
-    <ul>
-        <li><strong>刘维尔项（Liouville term）</strong>：描述哈密顿力学下的确定性运动。</li>
-        <li><strong>碰撞项（Collision term）</strong>：描述与热浴交换能量的涨落和耗散。</li>
-    </ul>
+    <h4>3.1 刘维尔项</h4>
+    <p>因为 $P_{\mathrm{eq}}$ 只通过 $H$ 依赖于 $x,v$，</p>
+    <div class="math-block">$$\frac{\partial P_{\mathrm{eq}}}{\partial x}=-\frac{1}{k_B T}\frac{\partial U}{\partial x}P_{\mathrm{eq}},\qquad\frac{\partial P_{\mathrm{eq}}}{\partial v}=-\frac{mv}{k_B T}P_{\mathrm{eq}}.$$</div>
+    <p>代回刘维尔算符：</p>
+    <div class="math-block">$$\left(v\partial_x-\frac{1}{m}\partial_x U\,\partial_v\right)P_{\mathrm{eq}}=\left(-\frac{v}{k_B T}\partial_x U+\frac{1}{m}\partial_x U\cdot\frac{mv}{k_B T}\right)P_{\mathrm{eq}}=0.$$</div>
+    <p>这就是哈密顿流保持能量、因而保持 $H$ 的任意函数这一事实。保守力不改变正则分布的形状。</p>
 
-    
+    <h4>3.2 碰撞项</h4>
+    <p>把 $\partial_v P_{\mathrm{eq}}$ 代入碰撞括号：</p>
+    <div class="math-block">$$vP_{\mathrm{eq}}+\frac{k_B T}{m}\partial_v P_{\mathrm{eq}}=vP_{\mathrm{eq}}+\frac{k_B T}{m}\left(-\frac{mv}{k_B T}P_{\mathrm{eq}}\right)=0.$$</div>
+    <p>括号本身为零，外面的速度导数也是零。摩擦想把分布压向 $v=0$，噪声想把它摊开；涨落–耗散关系使二者在 $P_{\mathrm{eq}}$ 上严格相消。因此 $\partial_t P_{\mathrm{eq}}=0$。</p>
+    <p>平稳分布存在还不等于模拟一定会采到它。还需要轨迹能到达能量面上连通的区域，也就是遍历性。有限时间的 MD 只能近似这一点。</p>
 
-    <h3>3. 稳态解的验证</h3>
-    <p>当系统达到平衡态时，$\frac{\partial P}{\partial t} = 0$。我们需要验证玻尔兹曼分布 $P_{eq} \propto \exp\left( -\frac{H(x,v)}{k_B T} \right)$ 是否为该方程的解。哈密顿量为：$H(x, v) = \frac{1}{2}mv^2 + U(x)$。</p>
+    <h3>4. 过阻尼极限</h3>
+    <p>若摩擦很强，速度在位置发生变化之前就已经热化，可以把动量积掉。位置边缘分布 $p(x,t)$ 满足 Smoluchowski 方程</p>
+    <div class="math-block">$$\frac{\partial p}{\partial t}=\frac{\partial}{\partial x}\left[\frac{1}{\gamma}\left(\frac{\partial U}{\partial x}\,p+k_B T\frac{\partial p}{\partial x}\right)\right].$$</div>
+    <p>稳态流为零给出 $p_{\mathrm{eq}}\propto e^{-U/k_B T}$，正是正则系综对位置的边缘分布。界面上的离子扩散、Kramers 速率的高阻尼公式，用的都是这个极限。</p>
 
-    <h4>A. 验证刘维尔项</h4>
-    <p>由于正则分布仅依赖于能量 $H$，根据哈密顿力学 $\frac{dH}{dt} = 0$，因此：</p>
-    <div class="math-block">
-        $$\left[ \frac{v \partial}{\partial x} - \frac{1}{m} \frac{\partial U}{\partial x} \frac{\partial}{\partial v} \right] P_{eq} = 0$$
-    </div>
+    <h3>5. 动能弛豫与均分</h3>
+    <p>先看自由粒子，$U=0$。对 $E_k=\frac12 mv^2$ 使用伊藤公式。随机项 $\sqrt{2\gamma k_B T}\,\eta$ 的二次变差在每个时间步贡献一份，结果是</p>
+    <div class="math-block">$$\frac{d}{dt}\langle E_k\rangle=-\frac{2\gamma}{m}\langle E_k\rangle+\frac{\gamma k_B T}{m}.$$</div>
+    <p>第一项是摩擦抽能，第二项是噪声注能。令导数为零：</p>
+    <div class="math-block">$$\langle E_k\rangle_{\mathrm{eq}}=\frac12 k_B T.$$</div>
+    <p>这就是一个二次自由度的均分。对应的速度分布是麦克斯韦分布</p>
+    <div class="math-block">$$P(v)=\sqrt{\frac{m}{2\pi k_B T}}\exp\left(-\frac{mv^2}{2k_B T}\right).$$</div>
+    <p>若噪声系数写成 $\sqrt{2\gamma k_B T_{\mathrm{noise}}}$ 而摩擦仍用 $T$，稳态动能会落到 $\frac12 k_B T_{\mathrm{noise}}$。热浴温度因此不是“设定一个目标再缩放”，而是由摩擦和噪声的比值决定的。</p>
 
-    <h4>B. 验证碰撞项</h4>
-    <p>计算偏导数 $\frac{\partial P_{eq}}{\partial v} = P_{eq} \cdot \left( -\frac{mv}{k_B T} \right)$，代入碰撞项括号内：</p>
-    <div class="math-block">
-        $$v P_{eq} + \frac{k_B T}{m} \left( -\frac{mv}{k_B T} P_{eq} \right) = v P_{eq} - v P_{eq} = 0$$
-    </div>
-
-    <h3>4. 结论</h3>
-    <p>因为刘维尔项和碰撞项在稳态下均为零，证明了玻尔兹曼分布是郎之万动力学的平稳分布。只要系统具有遍历性，系统最终会收敛到正则系综。郎之万动力学通过“摩擦”带走能量，通过“随机力”注入能量，涨落-耗散定理严格维持了温度 $T$ 下的平衡。</p>
-    
-    <hr>
-
-    <h3>5. 速度分布与均分定理验证</h3>
-    <p>在无外力情况下，郎之万方程简化为奥恩斯坦-乌伦贝克过程。当 $t \to \infty$ 时，速度分布趋向于麦克斯韦-玻尔兹曼分布：</p>
-    <div class="math-block">
-        $$P(v) = \sqrt{\frac{m}{2\pi k_B T}} \exp\left( -\frac{mv^2}{2k_B T} \right)$$
-    </div>
-
-    <p>通过速度平方的均值推导，可以得到：</p>
-    <div class="math-block">
-        $$\frac{d}{dt} \langle E_k \rangle = -\frac{2\gamma}{m} \langle E_k \rangle + \frac{\gamma k_B T}{m}$$
-    </div>
-    <p>在稳态下，$\langle E_k \rangle = \frac{1}{2} k_B T$，这从能量均分定理角度论证了 NVT 限制的有效性。</p>
+    <h3>6. 和 NVE 的差别</h3>
+    <p>关掉 $\gamma$ 和噪声，方程回到牛顿力学，采样的是等能面，即微正则。打开二者，能量可以进出热浴，瞬时动能涨落的相对大小随自由度增加而按 $1/\sqrt{N}$ 下降。郎之万动力学满足正则系综，靠的不是每一步把温度重置到目标值，而是平稳分布恰好是 $e^{-H/k_B T}$。</p>
 </section>

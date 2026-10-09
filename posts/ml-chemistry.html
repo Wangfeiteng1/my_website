@@ -1,71 +1,51 @@
 <section class="post-content">
-    <p>在统计力学中，<strong>微正则系综 (Microcanonical Ensemble, NVE)</strong> 和 <strong>正则系综 (Canonical Ensemble, NVT)</strong> 是描述系统的两种基石。它们在宏观极限下是等价的，但在物理实现和模拟手段上有着本质的区别。</p>
-    
-    <p>以下是它们之间的深层关联以及分子动力学（MD）代码如何实现这种转变的详细分析。</p>
+    <p>微正则系综固定 $N,V,E$，正则系综固定 $N,V,T$。宏观极限下二者等价，但分子动力学默认积出来的是前者。从 NVE 走到 NVT，就是允许系统和热浴交换能量，并让交换方式产生正确的能量涨落。</p>
 
-    <h3>1. 微正则系综与正则系综的关联</h3>
-    <p>从物理本质上讲，两者的核心区别在于系统边界的开放程度，即<strong>能量交换</strong>的有无。</p>
+    <h3>1. 两个系综在数什么</h3>
+    <p>微正则的基本假设是：等能面上每个可达微观态概率相等。状态数 $\Omega(E)$ 定义熵 $S=k_B\ln\Omega$。温度不是控制变量，而是</p>
+    <div class="math-block">$$\frac{1}{T}=\left(\frac{\partial S}{\partial E}\right)_{V,N}.$$</div>
+    <p>正则系综把系统放进大热浴。系统能量可以涨落，微观态权重是 $e^{-\beta E}$，配分函数</p>
+    <div class="math-block">$$Z(N,V,T)=\int\Omega(N,V,E)\,e^{-\beta E}\,dE,\qquad\beta=\frac{1}{k_B T}.$$</div>
+    <p>所以 $Z$ 是 $\Omega(E)$ 的拉普拉斯变换。亥姆霍兹自由能 $F=-k_B T\ln Z$ 与内能的关系是勒让德变换 $F=E-TS$，不是另一套物理。</p>
 
-    <h4>核心区别与数学联系</h4>
-    <ul>
-        <li><strong>微正则系综 (NVE):</strong> 描述的是一个孤立系统。系统的粒子数 $N$、体积 $V$ 和总能量 $E$ 严格保持不变。所有满足能量条件的微观态出现的概率相等。</li>
-        <li><strong>正则系综 (NVT):</strong> 描述的是系统与一个恒温热浴 (Heat Bath) 接触。系统可以与热浴交换能量，因此能量 $E$ 会在平均值附近波动，但温度 $T$ 保持恒定。</li>
-    </ul>
+    <h4>1.1 能量涨落为什么变小</h4>
+    <p>正则系综里 $\langle E\rangle=-\partial\ln Z/\partial\beta$，方差是</p>
+    <div class="math-block">$$\langle(\Delta E)^2\rangle=\frac{\partial^2\ln Z}{\partial\beta^2}=k_B T^2 C_V.$$</div>
+    <p>广延量 $E\sim N$，$C_V\sim N$，所以相对涨落</p>
+    <div class="math-block">$$\frac{\sigma_E}{\langle E\rangle}\sim\frac{1}{\sqrt{N}}.$$</div>
+    <p>$N\to\infty$ 时能量相对涨落消失，正则系综塌缩到微正则系综最可几能量上。小体系、界面盒子、成核团簇不在这个极限里，这时用哪个系综会改变结果。</p>
 
-    
+    <h3>2. 裸 MD 为什么是 NVE</h3>
+    <p>速度 Verlet 积的是</p>
+    <div class="math-block">$$m\dot{\mathbf v}_i=-\nabla_i U(\mathbf r).$$</div>
+    <p>力来自势能，时间反演对称，数值上也近似保持哈密顿量。没有外加通道，能量进出不去，采样的是初始能量附近的等能面。要得到 NVT，必须改运动方程或改速度更新。</p>
 
-    <h4>热力学势与勒让德变换 (Legendre Transform)</h4>
-    <p>在热力学层面，两者通过勒让德变换联系在一起。微正则系综对应的热力学势是熵 ($S$)，而正则系综对应的是亥姆霍兹自由能 ($F$)：</p>
-    
-    <div class="math-block">
-        $$F = E - TS$$
-    </div>
+    <h3>3. 几种热浴实际做了什么</h3>
+    <h4>3.1 Andersen</h4>
+    <p>以速率 $\nu$ 随机挑粒子，把它们的速度重采样成目标温度的麦克斯韦分布。这相当于瞬时与热浴碰撞。它能给出正确的静态正则分布，但碰撞打断动量自关联，扩散系数和振动谱会随 $\nu$ 改变。适合平衡结构，不适合原封不动拿来算动力学。</p>
 
-    <p>在统计力学中，正则系综的配分函数 $Z$ 实际上是微正则系综状态密度 $\Omega(E)$ 对能量的拉普拉斯变换：</p>
-    <div class="math-block">
-        $$Z(V, T, N) = \int \Omega(V, E, N) e^{-\beta E} dE$$
-    </div>
-    <p>其中 $\beta = \frac{1}{k_B T}$。</p>
+    <h4>3.2 Langevin</h4>
+    <p>每个粒子加摩擦和噪声：</p>
+    <div class="math-block">$$m\dot{\mathbf v}=-\nabla U-\gamma\mathbf v+\sqrt{2\gamma k_B T}\,\boldsymbol\eta(t).$$</div>
+    <p>平稳分布是正则分布，推导见《什么是郎之万动力学》。代价同样是改变了真实摩擦。界面水、质子转移如果本身就在溶剂里，额外的 $\gamma$ 必须小到不淹没物理阻尼，或者明确把它当成模型的一部分。</p>
 
-    <h4>热力学极限下的等价性</h4>
-    <p>当粒子数 $N \to \infty$ 时，正则系综中能量的相对波动 $\frac{\sigma_E}{\langle E \rangle}$ 正比于 $1/\sqrt{N}$，趋近于零。这意味着在宏观尺度上，正则系综的行为与微正则系综完全一致。</p>
+    <h4>3.3 Berendsen</h4>
+    <p>Berendsen 按一阶松弛缩放速度，</p>
+    <div class="math-block">$$\frac{dT}{dt}=\frac{T_0-T}{\tau}.$$</div>
+    <p>平均温度会对，但动能方差被压小，不是正则分布。它适合预平衡，不适合拿来算自由能或涨落。</p>
 
-    <hr>
+    <h4>3.4 CSVR</h4>
+    <p>Bussi–Donadio–Parrinello 仍是速度缩放，但缩放因子取自正确的动能分布而不是确定性公式。全局版本能恢复正则动能涨落，又比 Langevin 少破坏集体运动，所以常用于平衡化之后的产出轨迹。</p>
 
-    <h3>2. MD 代码如何实现从 NVE 到 NVT 的转变？</h3>
-    <p>传统的分子动力学本质上是在牛顿力学框架下积分运动方程，天然产生的是 NVE 轨迹（能量守恒）。为了模拟 NVT，MD 代码引入了<strong>热浴 (Thermostat)</strong> 算法，人为地修改运动方程来控制温度。</p>
+    <h4>3.5 Nosé–Hoover</h4>
+    <p>引入热浴变量 $\zeta$，扩展方程写成</p>
+    <div class="math-block">$$m\dot{\mathbf v}_i=-\nabla_i U-\zeta m\mathbf v_i,\qquad\dot\zeta=\frac{1}{Q}\left(\sum_i m v_i^2-gk_B T\right).$$</div>
+    <p>$Q$ 是热浴“质量”，$g$ 是动量自由度。系统偏热时 $\zeta$ 变正、抽能；偏冷时 $\zeta$ 变负、注能。扩展系统是哈密顿的，原系统的边缘分布在遍历时为正则分布。单个 Nosé–Hoover 对小体系或刚性模式可能不遍历，所以常用 Nosé–Hoover 链。</p>
 
-    
-
-    <h4>常见的实现策略</h4>
-    
-    <p><strong>A. 随机力方法 (Stochastic Methods)</strong></p>
-    <ul>
-        <li><strong>Andersen 热浴:</strong> 模拟粒子与热浴原子的碰撞。算法会随机选择一些粒子，并根据麦克斯韦-玻尔兹曼分布重新赋予它们速度。</li>
-        <li><strong>Langevin 热浴:</strong> 在运动方程中加入随机撞击力 $\mathbf{F}_{random}$ 和摩擦力 $-\gamma \mathbf{v}$。这模拟了粒子在粘性流体中运动并受到热扰动的过程。</li>
-    </ul>
-
-    <p><strong>B. 速度缩放方法 (Velocity Rescaling)</strong></p>
-    <ul>
-        <li><strong>Berendsen 热浴:</strong> 核心思想是让系统温度以一阶动力学过程向设定温度靠拢。它通过缩放速度来实现，虽然简单高效，但不能产生严格的正则分布，常用于前期平衡。</li>
-        <li><strong>Bussi-Donadio-Parrinello (CSVR):</strong> 改进版的速度缩放，加入了随机项，使其能产生物理意义上正确的正则分布。</li>
-    </ul>
-
-    <p><strong>C. 扩展拉格朗日法 (Extended Lagrangian)</strong></p>
-    <ul>
-        <li><strong>Nosé-Hoover 热浴:</strong> 这是目前主流 MD 软件（如 LAMMPS, GROMACS）中最常用的高级算法。
-            <ul>
-                <li><strong>原理:</strong> 它将热浴视为一个虚拟的动态自由度，引入运动方程中。</li>
-                <li><strong>逻辑:</strong> 系统与虚拟变量进行能量交换。如果系统太热，虚拟摩擦力会增大以减慢粒子；如果太冷，则相反。</li>
-            </ul>
-        </li>
-    </ul>
-
-    <h3>3. 总结：转变的本质</h3>
-    <p>MD 代码实现转变的逻辑可以概括为：</p>
+    <h3>4. 选择热浴时要分开的两件事</h3>
     <ol>
-        <li><strong>打破孤立:</strong> 引入外界干预（随机力、缩放或虚拟变量）。</li>
-        <li><strong>能量泵浦:</strong> 当系统的瞬时动能（温度）偏离目标值时，通过热浴机制进行泵入或泵出。</li>
-        <li><strong>满足涨落:</strong> 优秀的算法不仅能控制平均温度，还能模拟出符合 $1/\sqrt{N}$ 规律的能量涨落，从而在模拟盒子里完美复刻正则系综。</li>
+        <li>静态采样：平衡构型、径向分布、自由能面，要求平稳分布是正则分布。Berendsen 不够，Langevin、CSVR、Nosé–Hoover 链可以。</li>
+        <li>动力学：扩散、振动谱、质子转移速率，要求热浴不要伪造摩擦。这时优先弱耦合的 Nosé–Hoover 链或 CSVR；Langevin 的 $\gamma$ 必须单独做收敛测试。</li>
     </ol>
+    <p>热浴不是把温度“设定”到目标值。它是一条能量通道。通道的噪声和摩擦匹配，分布才是 $e^{-\beta H}$；通道太强，谱就不再是物理体系的谱。</p>
 </section>

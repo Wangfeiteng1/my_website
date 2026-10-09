@@ -1,159 +1,36 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>热力学第一与第二定律：自由能判据解析</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f7f9;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #2980b9;
-            margin-top: 30px;
-            border-left: 5px solid #3498db;
-            padding-left: 15px;
-        }
-        .formula-box {
-            background-color: #f8f9fa;
-            border: 1px dashed #cbd5e0;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #3498db;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .highlight {
-            color: #e67e22;
-            font-weight: bold;
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #7f8c8d;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
+<section class="post-content">
+    <p>自由能不是另一种能量，而是把环境熵变折进系统之后的判据。下面从总熵增加写出 $G$，再分开平衡常数和活化势垒。等温等压过程里，$dQ=dH$ 只对可逆体积分成立，这一步需要写清楚。</p>
 
-<div class="container">
-    <h1>热力学第一与第二定律：自由能的物理本质</h1>
-    <p>在化学与材料科学研究中，自由能不仅是热力学的核心判据，也是连接微观动力学与宏观平衡的桥梁。</p>
+    <h3>1. 从总熵到吉布斯自由能</h3>
+    <p>系统和环境组成隔离总体。第二定律要求</p>
+    <div class="math-block">$$dS_{\mathrm{sys}}+dS_{\mathrm{surr}}\ge 0,$$</div>
+    <p>等号只在可逆过程成立。环境很大，它与系统交换的热可以看成环境侧的可逆热：</p>
+    <div class="math-block">$$dS_{\mathrm{surr}}=-\frac{\delta Q_{\mathrm{sys}}}{T}.$$</div>
+    <p>第一定律对系统写 $\,dU=\delta Q+\delta W$。只做体积功且外界压力恒为 $P$ 时，$\delta W=-P\,dV$，所以</p>
+    <div class="math-block">$$\delta Q=dU+P\,dV=dH,$$</div>
+    <p>这里 $H=U+PV$，并且用了 $dP=0$。代回总熵：</p>
+    <div class="math-block">$$dS_{\mathrm{sys}}-\frac{dH}{T}\ge 0.$$</div>
+    <p>等温过程 $d(TS)=T\,dS$，于是</p>
+    <div class="math-block">$$dG=dH-T\,dS\le 0,\qquad G=H-TS.$$</div>
+    <p>$dG\le 0$ 因此就是“总体熵不减少”在只观察系统、且 $T,P$ 固定时的写法。它不是独立的原理。</p>
 
-    <h2>1. 理论根源：从宇宙总熵到系统自由能</h2>
-    <p>自由能（如 Gibbs 自由能 $G$）的引入，本质上是为了在<strong>不直接观测环境</strong>的情况下，判定宇宙总熵的变化方向。</p>
-    
-    <h3>1.1 热力学第一定律（能量守恒）</h3>
-    <div class="formula-box">
-        对于恒温（$T$）恒压（$P$）过程，系统交换的热量等于焓变：
-        $$ dQ_{sys} = dU + PdV = dH_{sys} $$
-    </div>
+    <h4>1.1 亥姆霍兹自由能</h4>
+    <p>若固定的是体积而不是压力，体积功为零，$\delta Q=dU$，同样的步骤给出 $dF\le 0$，$F=U-TS$。正则系综直接计算的是 $F=-k_B T\ln Z$。等温等压下再做勒让德变换 $G=F+PV$。</p>
 
-    <h3>1.2 热力学第二定律（熵增原理）</h3>
-    <div class="formula-box">
-        宇宙总熵必须增加：
-        $$ dS_{total} = dS_{sys} + dS_{surr} \ge 0 $$
-        由于环境巨大，其熵变可视作可逆热交换：
-        $$ dS_{surr} = \frac{-dQ_{sys}}{T} = \frac{-dH_{sys}}{T} $$
-    </div>
+    <h3>2. 自发与平衡</h3>
+    <p>$\Delta G=\Delta H-T\Delta S$ 是焓和熵两项的差，不是哪一项单独作主。平衡时 $dG=0$。标准状态下</p>
+    <div class="math-block">$$\Delta G^\circ=-RT\ln K.$$</div>
+    <p>推导只是在 $G=\sum_i\mu_i N_i$ 里令反应进度的导数为零，并用 $\mu_i=\mu_i^\circ+RT\ln a_i$。$K$ 因此量的是落点，不量路径。$\Delta G^\circ<0$ 只说明平衡偏向产物，不说明反应快。</p>
 
-    <h3>1.3 自由能的定义</h3>
-    <p>将上述公式合并：</p>
-    <div class="formula-box">
-        $$ dS_{sys} - \frac{dH_{sys}}{T} \ge 0 \implies dH_{sys} - TdS_{sys} \le 0 $$
-        令 $ G = H - TS $，在等温等压条件下：
-        $$ \mathbf{dG \le 0} $$
-    </div>
-    <p><strong>物理意义：</strong> 自由能的减小等价于宇宙总熵的增加。它是“有效能量”的度量。</p>
+    <h3>3. 速率看的是活化自由能</h3>
+    <p>过渡态理论把速率写成通过分割面的平衡通量：</p>
+    <div class="math-block">$$k=\frac{k_B T}{h}e^{-\Delta G^\ddagger/RT},\qquad\Delta G^\ddagger=\Delta H^\ddagger-T\Delta S^\ddagger.$$</div>
+    <p>$\Delta H^\ddagger$ 是到过渡态的能量代价，$\Delta S^\ddagger$ 是构型限制。溶剂重组、质子的接受角度，经常出现在熵这一项。过阻尼时指前因子还要再乘 Kramers 的 $\omega_\ddagger/\gamma$，此时 $k_B T/h$ 不再是完整故事。</p>
 
-    
-
-    <h2>2. 热力学难易：自发性与平衡</h2>
-    <p>“热力学难易”衡量的是一个状态向另一个状态转化的<strong>驱动力</strong>。</p>
+    <h3>4. 和界面计算的对应</h3>
     <ul>
-        <li><span class="highlight">驱动力平衡：</span> $\Delta G = \Delta H - T\Delta S$。这是能量最低原理（焓驱动）与混乱度最大化（熵驱动）之间的博弈。</li>
-        <li><span class="highlight">转化限度：</span> 自由能差值决定了平衡常数 $K$，即 $ \Delta G^\circ = -RT \ln K $。</li>
+        <li>热力学：比较两个电势下的界面自由能，或用热力学积分得到 $\Delta G$，判断反应能否在该电位发生。</li>
+        <li>动力学：在反应坐标上计算 $\Delta G^\ddagger(q)$，再乘传输系数。质子在 $\mathrm{IrO_2}$/水界面的跳跃频率由势垒和摩擦共同决定，只看终点 $\Delta G$ 不够。</li>
     </ul>
-
-    <h2>3. 动力学难易：速率与屏障</h2>
-    <p>动力学关注的是转化路径上的“最高点”。根据<strong>过渡态理论（TST）</strong>，反应速率由活化自由能 $\Delta G^\ddagger$ 决定。</p>
-    <div class="formula-box">
-        $$ k = \frac{k_B T}{h} e^{-\frac{\Delta G^\ddagger}{RT}} $$
-        其中 $\Delta G^\ddagger = \Delta H^\ddagger - T\Delta S^\ddagger$
-    </div>
-    <ul>
-        <li><strong>活化焓 ($\Delta H^\ddagger$)：</strong> 越过能垒需克服的物理抗力（如成键、排斥）。</li>
-        <li><strong>活化熵 ($\Delta S^\ddagger$)：</strong> 到达过渡态所需的有序度。即使能量足够，如果过渡态要求过于苛刻的构型，反应依然难以发生。</li>
-    </ul>
-
-    
-
-    <h2>4. 核心对比总结</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>维度</th>
-                <th>衡量指标</th>
-                <th>决定因素</th>
-                <th>科研应用举例</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>热力学</strong></td>
-                <td>$\Delta G$ (终态-始态)</td>
-                <td>宇宙总熵增</td>
-                <td>判断析氢反应（HER）能否在特定电位下自发发生。</td>
-            </tr>
-            <tr>
-                <td><strong>动力学</strong></td>
-                <td>$\Delta G^\ddagger$ (过渡态-始态)</td>
-                <td>跨越屏障的概率</td>
-                <td>预测质子在 $IrO_2/H_2O$ 界面转移的跳跃频率。</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="footer">
-        <p>© 2026 统计力学相关笔记 </p>
-    </div>
-</div>
-
-</body>
-</html>
+    <p>所以自由能差回答“最终偏向哪边”，活化自由能回答“单位时间过多少”。二者都来自熵，但一个是总体熵，一个是过渡态相对反应物的受限程度。</p>
+</section>

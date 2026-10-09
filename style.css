@@ -116,3 +116,10 @@ h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 25px; letter-spacing: -
     .toc-container { display: none; }
     .post-layout { display: block; }
 }
+
+.full-content-html h4 { margin: 22px 0 10px; font-size: 1.15rem; }
+.full-content-html ul, .full-content-html ol { margin: 0 0 18px 1.2rem; }
+.full-content-html li { margin-bottom: 8px; }
+.full-content-html .math-block { margin: 8px 0 18px; overflow-x: auto; }
+.full-content-html table { width: 100%; border-collapse: collapse; margin: 16px 0 22px; font-size: 0.95rem; }
+.full-content-html th, .full-content-html td { border-bottom: 1px solid var(--border-color); padding: 8px 6px; text-align: left; vertical-align: top; }

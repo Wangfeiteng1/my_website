@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>王飞腾 | 个人主页</title>
-    <link rel="stylesheet" href="style.css?v=20261009c">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link rel="stylesheet" href="style.css?v=20261009e">
+    <style>
+        body { margin: 0; background: #d7cfc3; padding: 12px; }
+        .book { width: 100%; min-height: calc(100vh - 24px); background: #f4efe4; padding: 20px 32px 64px; box-sizing: border-box; }
+        .container, #post-detail, .post-body { width: 100%; max-width: none; }
+        .post-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; }
+        h1, #detail-content h1 { font-size: 1.8rem; font-weight: 560; letter-spacing: 0; }
+        .back-btn { background: none; border: 0; border-radius: 0; padding: 0; box-shadow: none; }
+        @media (max-width: 800px) { .post-layout { display: block; } .toc-container { display: none; } }
+    </style>
 
     <script>
         window.MathJax = {

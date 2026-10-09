@@ -1,125 +1,255 @@
-/* ================= 1. 基础变量 ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
-    --primary-color: #0071e3;
-    --text-main: #1d1d1f;
-    --text-secondary: #86868b;
-    --border-color: #f2f2f2;
+    --ink: #1c1c1c;
+    --muted: #6b6b6b;
+    --line: #ececec;
+    --accent: #9a3b2f;
+    --paper: #fafaf8;
 }
+
+html { scroll-behavior: smooth; }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-    color: var(--text-main);
-    line-height: 1.5;
-    background-color: #ffffff;
-    -webkit-font-smoothing: antialiased;
-    padding-bottom: 120px;
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Songti SC", "Source Han Serif SC", serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.7;
+    font-size: 17px;
+    padding-bottom: 80px;
 }
 
-.container { width: 90%; max-width: 720px; margin: 0 auto; }
-
-/* ================= 2. 导航与通用 ================= */
-nav { padding: 60px 0 40px; }
-.nav-flex { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-weight: 700; font-size: 1.25rem; color: var(--text-main); }
-.links a {
-    text-decoration: none; color: var(--text-secondary); margin-left: 28px;
-    font-size: 0.95rem; font-weight: 500; transition: 0.2s;
-}
-.links a:hover, .links a.active { color: var(--primary-color); }
-.links a.active { font-weight: 700; }
-.hidden { display: none; }
-.section-title { margin-bottom: 48px; font-size: 2.2rem; font-weight: 700; }
-
-/* ================= 3. 首页与博文列表 ================= */
-h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 25px; letter-spacing: -0.03em; }
-.highlight { color: var(--primary-color); }
-.description { font-size: 1.4rem; color: #424245; }
-
-.post-item { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
-.post-item h3 { font-size: 1.6rem; cursor: pointer; transition: 0.2s; margin-bottom: 10px; }
-.post-item h3:hover { color: var(--primary-color); }
-
-/* ================= 4. 博文详情 (支持 HTML 标签) ================= */
-.back-btn {
-    background: #f5f5f7; border: none; padding: 10px 24px; border-radius: 40px;
-    cursor: pointer; color: var(--text-main); margin-bottom: 30px; font-weight: 600;
-}
-.full-content-html { margin-top: 30px; font-size: 1.1rem; }
-.full-content-html h3 { margin: 30px 0 15px; font-size: 1.5rem; }
-.full-content-html p { margin-bottom: 18px; }
-.full-content-html img { width: 100%; border-radius: 8px; margin: 20px 0; }
-
-/* ================= 5. 学术发表 ================= */
-.pub-item-academic { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
-.pub-item-academic:last-child { border: none; }
-.citation { font-size: 1rem; color: #333; }
-.citation strong { display: block; color: #000; font-size: 1.1rem; margin: 5px 0; }
-.pub-type-tag {
-    font-size: 0.65rem; font-weight: 700; color: var(--primary-color);
-    background: #eef7ff; padding: 2px 8px; border-radius: 4px; display: inline-block;
-}
-.pub-links { margin-top: 8px; font-size: 0.9rem; display: flex; gap: 15px; }
-.pub-links a { color: var(--primary-color); text-decoration: none; }
-
-@media (max-width: 680px) { h1 { font-size: 2.2rem; } .nav-flex { flex-direction: column; align-items: flex-start; } .links { margin-top: 15px; } .links a { margin-left: 0; margin-right: 20px; } }
-
-/* style.css 新增目录样式 */
-.post-layout {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
+.container {
+    width: min(680px, calc(100% - 40px));
+    margin: 0 auto;
 }
 
-.toc-container {
-    width: 180px;
-    flex-shrink: 0;
+nav {
     position: sticky;
-    top: 40px;
+    top: 0;
+    z-index: 5;
+    background: rgba(250, 250, 248, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid transparent;
 }
+
+.nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 18px 0 14px;
+}
+
+.logo {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.links a {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-decoration: none;
+    color: var(--muted);
+    margin-left: 22px;
+    font-size: 0.86rem;
+}
+
+.links a:hover,
+.links a.active { color: var(--ink); }
+
+.hidden { display: none; }
+
+h1 {
+    font-size: 2rem;
+    font-weight: 560;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin: 28px 0 14px;
+}
+
+.highlight { color: inherit; font-style: italic; }
+
+.description {
+    font-size: 1.05rem;
+    color: #3f3f3f;
+    max-width: 38em;
+}
+
+.section-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 28px 0 22px;
+}
+
+.post-item {
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+}
+
+.post-item:last-child { border-bottom: 1px solid var(--line); }
+
+.post-date,
+.post-item .post-date {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+
+.post-item h3 {
+    font-size: 1.15rem;
+    font-weight: 560;
+    line-height: 1.35;
+    margin-bottom: 6px;
+}
+
+.post-item h3:hover { color: var(--accent); }
+
+.post-item p:last-child {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+#post-detail {
+    width: min(1080px, calc(100vw - 36px));
+    margin-left: calc(50% - min(540px, 50vw - 18px));
+}
+
+.post-layout {
+    display: grid;
+    grid-template-columns: 168px minmax(0, 680px);
+    gap: 36px;
+    justify-content: center;
+    align-items: start;
+}
+
+.toc-container { position: sticky; top: 72px; }
 
 .toc-sticky h4 {
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 10px;
 }
 
 #toc-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border-left: 1px solid var(--border-color);
-    padding-left: 15px;
+    gap: 7px;
 }
 
 #toc-list a {
     text-decoration: none;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    transition: 0.2s;
-    line-height: 1.4;
+    color: var(--muted);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.35;
 }
 
-#toc-list a:hover {
-    color: var(--primary-color);
+#toc-list a:hover { color: var(--ink); }
+
+.post-body { min-width: 0; }
+
+.back-btn {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 8px 0 18px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.82rem;
 }
 
-.post-body {
-    flex-grow: 1;
-    min-width: 0; /* 防止长代码溢出挤压目录 */
+.back-btn:hover { color: var(--ink); }
+
+#detail-content h1 {
+    font-size: 1.7rem;
+    margin: 0 0 8px;
 }
 
-/* 移动端自动隐藏目录 */
-@media (max-width: 900px) {
+.full-content-html { margin-top: 22px; }
+
+.full-content-html h3 {
+    font-size: 1.18rem;
+    font-weight: 600;
+    margin: 1.8em 0 0.55em;
+    line-height: 1.35;
+}
+
+.full-content-html h4 {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin: 1.3em 0 0.4em;
+}
+
+.full-content-html p { margin: 0 0 0.9em; }
+
+.full-content-html ul,
+.full-content-html ol {
+    margin: 0 0 1em 1.15em;
+}
+
+.full-content-html li { margin: 0.25em 0; }
+
+.full-content-html .math-block {
+    margin: 0.3em 0 0.9em;
+    overflow-x: auto;
+}
+
+mjx-container[display="true"] {
+    margin: 0.55em 0 !important;
+    font-size: 96%;
+}
+
+.pub-item-academic {
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+}
+
+.pub-item-academic:last-child { border-bottom: 1px solid var(--line); }
+
+.pub-type-tag {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.citation { margin-top: 4px; font-size: 0.98rem; }
+
+.citation strong {
+    display: block;
+    font-weight: 600;
+    margin: 2px 0 3px;
+}
+
+.pub-links {
+    margin-top: 6px;
+    display: flex;
+    gap: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.8rem;
+}
+
+.pub-links a { color: var(--accent); text-decoration: none; }
+
+@media (max-width: 860px) {
+    #post-detail {
+        width: min(680px, calc(100% - 40px));
+        margin-left: auto;
+    }
     .toc-container { display: none; }
     .post-layout { display: block; }
+    h1 { font-size: 1.7rem; }
 }
-
-.full-content-html h4 { margin: 22px 0 10px; font-size: 1.15rem; }
-.full-content-html ul, .full-content-html ol { margin: 0 0 18px 1.2rem; }
-.full-content-html li { margin-bottom: 8px; }
-.full-content-html .math-block { margin: 8px 0 18px; overflow-x: auto; }
-.full-content-html table { width: 100%; border-collapse: collapse; margin: 16px 0 22px; font-size: 0.95rem; }
-.full-content-html th, .full-content-html td { border-bottom: 1px solid var(--border-color); padding: 8px 6px; text-align: left; vertical-align: top; }

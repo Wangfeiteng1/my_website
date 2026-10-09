@@ -1,50 +1,55 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-    --ink: #1c1c1c;
-    --muted: #6b6b6b;
-    --line: #ececec;
-    --accent: #9a3b2f;
-    --paper: #fafaf8;
+    --ink: #2a241c;
+    --muted: #7a7166;
+    --line: #e4d9c8;
+    --accent: #8c3b2f;
+    --paper: #f4efe4;
+    --desk: #d7cfc3;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Songti SC", "Source Han Serif SC", serif;
+    font-family: "Iowan Old Style", Palatino, "Palatino Linotype", "Songti SC", "Source Han Serif SC", serif;
     color: var(--ink);
-    background: var(--paper);
-    line-height: 1.7;
-    font-size: 17px;
-    padding-bottom: 80px;
+    background: var(--desk);
+    line-height: 1.85;
+    font-size: 18px;
+    padding: 14px;
 }
 
-.container {
-    width: min(680px, calc(100% - 40px));
-    margin: 0 auto;
+.book {
+    width: 100%;
+    min-height: calc(100vh - 28px);
+    background: var(--paper);
+    border: 1px solid #e7dccb;
+    box-shadow: 0 8px 28px rgba(70, 52, 32, 0.12);
+    padding: 22px 36px 72px;
 }
+
+.container { width: 100%; margin: 0; }
 
 nav {
     position: sticky;
     top: 0;
     z-index: 5;
-    background: rgba(250, 250, 248, 0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid transparent;
+    background: rgba(244, 239, 228, 0.94);
+    border-bottom: 1px solid var(--line);
 }
 
 .nav-flex {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding: 18px 0 14px;
+    padding: 12px 0 10px;
 }
 
 .logo {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 0.92rem;
     font-weight: 600;
-    letter-spacing: 0.01em;
 }
 
 .links a {
@@ -61,181 +66,160 @@ nav {
 .hidden { display: none; }
 
 h1 {
-    font-size: 2rem;
+    font-size: 2.15rem;
     font-weight: 560;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    margin: 28px 0 14px;
+    line-height: 1.3;
+    margin: 28px 0 16px;
 }
 
-.highlight { color: inherit; font-style: italic; }
+.highlight { font-style: italic; }
 
 .description {
-    font-size: 1.05rem;
-    color: #3f3f3f;
-    max-width: 38em;
+    font-size: 1.12rem;
+    max-width: none;
 }
 
 .section-title {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--muted);
-    margin: 28px 0 22px;
+    margin: 26px 0 8px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
 }
 
 .post-item {
-    padding: 16px 0;
-    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 108px minmax(0, 1fr);
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
 }
 
-.post-item:last-child { border-bottom: 1px solid var(--line); }
-
-.post-date,
-.post-item .post-date {
+.post-date {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.04em;
+    font-size: 0.78rem;
     color: var(--muted);
-    margin-bottom: 4px;
+    padding-top: 4px;
 }
 
 .post-item h3 {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     font-weight: 560;
-    line-height: 1.35;
-    margin-bottom: 6px;
+    line-height: 1.4;
+    margin-bottom: 4px;
 }
 
 .post-item h3:hover { color: var(--accent); }
 
 .post-item p:last-child {
-    color: var(--muted);
-    font-size: 0.95rem;
+    color: #5e564c;
+    font-size: 1rem;
 }
 
-#post-detail {
-    width: min(1080px, calc(100vw - 36px));
-    margin-left: calc(50% - min(540px, 50vw - 18px));
-}
+#post-detail { width: 100%; margin: 0; }
 
 .post-layout {
     display: grid;
-    grid-template-columns: 168px minmax(0, 680px);
-    gap: 36px;
-    justify-content: center;
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 28px;
     align-items: start;
 }
 
-.toc-container { position: sticky; top: 72px; }
+.toc-container { position: sticky; top: 64px; }
 
 .toc-sticky h4 {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 0.72rem;
-    font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 10px;
 }
 
-#toc-list {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
+#toc-list { display: flex; flex-direction: column; gap: 7px; }
 
 #toc-list a {
     text-decoration: none;
     color: var(--muted);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     line-height: 1.35;
 }
 
 #toc-list a:hover { color: var(--ink); }
-
-.post-body { min-width: 0; }
 
 .back-btn {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: none;
     border: 0;
     padding: 0;
-    margin: 8px 0 18px;
+    margin: 16px 0 12px;
     color: var(--muted);
     cursor: pointer;
-    font-size: 0.82rem;
+    font-size: 0.84rem;
 }
-
-.back-btn:hover { color: var(--ink); }
 
 #detail-content h1 {
-    font-size: 1.7rem;
-    margin: 0 0 8px;
+    font-size: 1.85rem;
+    margin: 0 0 6px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
 }
 
-.full-content-html { margin-top: 22px; }
+.full-content-html { margin-top: 18px; }
 
 .full-content-html h3 {
-    font-size: 1.18rem;
-    font-weight: 600;
-    margin: 1.8em 0 0.55em;
-    line-height: 1.35;
+    font-size: 1.22rem;
+    margin: 1.6em 0 0.45em;
 }
 
 .full-content-html h4 {
-    font-size: 1.02rem;
-    font-weight: 600;
-    margin: 1.3em 0 0.4em;
+    font-size: 1.05rem;
+    margin: 1.2em 0 0.35em;
 }
 
-.full-content-html p { margin: 0 0 0.9em; }
+.full-content-html p {
+    margin: 0 0 0.85em;
+    text-align: justify;
+    text-indent: 2em;
+}
+
+.full-content-html li { margin: 0.2em 0; }
 
 .full-content-html ul,
-.full-content-html ol {
-    margin: 0 0 1em 1.15em;
-}
-
-.full-content-html li { margin: 0.25em 0; }
+.full-content-html ol { margin: 0 0 1em 1.3em; }
 
 .full-content-html .math-block {
-    margin: 0.3em 0 0.9em;
+    margin: 0.2em 0 0.8em;
     overflow-x: auto;
+    text-indent: 0;
 }
 
-mjx-container[display="true"] {
-    margin: 0.55em 0 !important;
-    font-size: 96%;
-}
+mjx-container[display="true"] { margin: 0.45em 0 !important; }
 
 .pub-item-academic {
     padding: 14px 0;
-    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
 }
-
-.pub-item-academic:last-child { border-bottom: 1px solid var(--line); }
 
 .pub-type-tag {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
     color: var(--muted);
+    padding-top: 4px;
 }
 
-.citation { margin-top: 4px; font-size: 0.98rem; }
+.citation { font-size: 1.02rem; }
 
-.citation strong {
-    display: block;
-    font-weight: 600;
-    margin: 2px 0 3px;
-}
+.citation strong { font-weight: 600; }
 
 .pub-links {
-    margin-top: 6px;
+    margin-top: 4px;
     display: flex;
     gap: 14px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -244,12 +228,11 @@ mjx-container[display="true"] {
 
 .pub-links a { color: var(--accent); text-decoration: none; }
 
-@media (max-width: 860px) {
-    #post-detail {
-        width: min(680px, calc(100% - 40px));
-        margin-left: auto;
-    }
+@media (max-width: 800px) {
+    body { padding: 0; }
+    .book { border: 0; box-shadow: none; padding: 16px 16px 56px; }
+    .post-item,
+    .pub-item-academic { grid-template-columns: 1fr; gap: 4px; }
     .toc-container { display: none; }
     .post-layout { display: block; }
-    h1 { font-size: 1.7rem; }
 }
